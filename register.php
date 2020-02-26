@@ -13,7 +13,7 @@
   <body>
     <div class="container-fluid">
       <?php
-          include ('route/home-page.php');
+          include ('route/register-page.php');
       ?>
     </div>
     <!-- Optional JavaScript -->
