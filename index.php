@@ -12,6 +12,7 @@
   </head>
   <body>
     <div class="container-fluid">
+
       <?php
           include ('route/home-page.php');
       ?>
