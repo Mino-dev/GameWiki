@@ -1,11 +1,11 @@
 <header class="hp:header-section header-section"> 
     <?php
+        session_start();
         require_once('data/database.php');
-        
-        connectDB();
-        
-        include('template/navbar.html');
-    
+        if(connectDB()){
+            include('template/navbar.php');
+            closeDB();
+        }            
     ?>
 
 </header>

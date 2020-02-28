@@ -7,7 +7,8 @@
             if(checkLoginUser($username,$password)){
                 session_start();
                 loginUser();
-                $_SESSION['id'] = "userloggedin";
+                $_SESSION['id'] = "login";
+                $_SESSION['log'] = true;
                 echo "<script type='text/javascript'> window.location='index.php'; </script>";
             }else{
                 echo "hi";
@@ -18,14 +19,14 @@
     
 ?>
 <!--Navigation Bar -->
-<header class="lr:header-section header-section">
+<header class="l:header-section header-section">
     <?php
-        include('template/navbar.html');
+        include('template/navbar.php');
     ?>
 </header>
 <!--End of Navigation Bar-->
 <!--Login Section -->
-<section class="lr:main-section container">
+<section class="l:main-section container">
     <form class="login-form" method="post">
         <div class="form-group row">
             <label for="login-username" class="col-sm-2 col-form-label">Username</label>

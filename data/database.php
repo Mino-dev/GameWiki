@@ -49,9 +49,9 @@
             return true;
         }
     }
-    function checkIfUniqueUsername($username, $uid){
-        $sql = "SELECT username, upassword FROM users
-                WHERE uid = '$uid'
+    function checkIfUniqueUsername($username, $password){
+        $sql = "SELECT username FROM users
+                WHERE upassword = '$password'
                 AND username = '$username'";
 
         $result = mysqli_query($connection, $sql);
@@ -72,7 +72,7 @@
             return false;
         }
     }
-    function registerUser($username, $password, $email, $type = 1, $pfp='../img/default.png'){
+    function registerUser($username, $password, $email, $type = 1, $pfp='img/default.png'){
 
         $sql = "INSERT INTO users(username, upassword, uemail, utype, upfp)
                 VALUES('$username', '$password', '$email', '$type', '$pfp')";
