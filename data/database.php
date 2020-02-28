@@ -49,9 +49,9 @@
             return true;
         }
     }
-    function checkIfUniqueUsername($username, $uid){
-        $sql = "SELECT username, upassword FROM users
-                WHERE uid = '$uid'
+    function checkIfUniqueUsername($username, $password){
+        $sql = "SELECT username FROM users
+                WHERE upassword = '$password'
                 AND username = '$username'";
 
         $result = mysqli_query($connection, $sql);

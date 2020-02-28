@@ -31,7 +31,7 @@
 ?>
 
 <!--Navigation Bar -->
-<header class="lr:header-section header-section">
+<header class="r:header-section header-section">
     <?php
         
         include('template/navbar.php');
@@ -39,7 +39,7 @@
 </header>
 <!--End of Navigation Bar-->
 <!--Login Section -->
-<section class="lr:main-section container">
+<section class="r:main-section container">
     <form class="login-form" method="post">
         <div class="form-row">
             <div class="form-group col-md-6">
