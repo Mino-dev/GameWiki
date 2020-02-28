@@ -34,7 +34,7 @@
 <header class="lr:header-section header-section">
     <?php
         
-        include('template/navbar.html');
+        include('template/navbar.php');
     ?>
 </header>
 <!--End of Navigation Bar-->

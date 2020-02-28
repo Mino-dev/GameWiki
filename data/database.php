@@ -72,7 +72,7 @@
             return false;
         }
     }
-    function registerUser($username, $password, $email, $type = 1, $pfp='../img/default.png'){
+    function registerUser($username, $password, $email, $type = 1, $pfp='img/default.png'){
 
         $sql = "INSERT INTO users(username, upassword, uemail, utype, upfp)
                 VALUES('$username', '$password', '$email', '$type', '$pfp')";
