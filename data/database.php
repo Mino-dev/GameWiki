@@ -1,5 +1,6 @@
 <?php
     global $connection;
+    global $login;
     function connectDB(){
         $db_host = "localhost";
         //$db_username = "id12624664_gamewiki";
@@ -20,7 +21,10 @@
             return true;
         }
     }
-    
+    function closeDB(){
+        global $connection;
+        mysqli_close($connection);
+    }
     function isEmailExisting($email){
         $sql = "SELECT uemail FROM users
                 WHERE uemail = '$email'";
@@ -39,7 +43,6 @@
                 WHERE username = '$username'";
         global $connection;
         $result = mysqli_query($connection, $sql);
-
         if(mysqli_num_rows($result) == 0){
             return false;
         }else{
@@ -81,13 +84,29 @@
             return false;
         }
     }
-    function loginUser($username, $password){
-        $ret = mysqli_fetch_array($result);
+
+    function checkLoginUser($username, $password){
+        $sql = "SELECT * FROM users
+        WHERE username = '$username'
+        AND upassword = '$password'";
+        global $connection, $login;
+        $login = mysqli_query($connection, $sql);
+
+        if(mysqli_num_rows($login) == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    function loginUser(){
+        global $login;
+        $row = mysqli_fetch_array($login);
         $client = array("uid" => $row['uid'],
-                    "username" => $row['username'],
-                    "uemail" => $row['uemail'],
-                    "utype" => $row['utype'],
-                    "upfp"  => $row['upfp']);
+                        "username" => $row['username'],
+                        "uemail" => $row['uemail'],
+                        "utype" => $row['utype'],
+                        "upfp"  => $row['upfp']);
+        $_SESSION['client'] = $client;
     }
     
 ?>
