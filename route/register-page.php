@@ -1,35 +1,33 @@
 <?php
-    
-    require_once('data/database.php');
-        
-    connectDB();
-    if(isset($_POST['register'])){
-        $email = $_POST['email'];
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-        $cpassword = $_POST['cpassword'];
-
-        echo $email . "<br>" .$username . "<br>" . $password . "<br>" . $cpassword;
-        if(!isUsernameExisting($username)){
-            if(!isEmailExisting($email)){
-                if($cpassword!=$password){
-                    if(registerUser($username, $password, $email)){
-                        echo"<script>windows.location = 'login.php';</script>";
+    require_once('data/database.php'); 
+    if(connectDB()){
+        if(isset($_POST['register'])){
+            $email = $_POST['email'];
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $cpassword = $_POST['cpassword'];
+            if(!isUsernameExisting($username)){
+                if(!isEmailExisting($email)){
+                    if($cpassword==$password){
+                        if(registerUser($username, $password, $email)){
+                            echo "<script type='text/javascript'> window.location='login.php'; </script>";
+                            echo "I'm in!";
+                        }else{
+                            echo "registration oops";
+                        }
                     }else{
-                        echo "registration oops";
+                        echo "password doest not match oops";
                     }
                 }else{
-                    echo "password doest not match oops";
+                    echo "email oops";
                 }
             }else{
-                echo "email oops";
-            }
-        }else{
-            echo "username oops";
+                echo "username oops";
+            } 
         }
-
-        
+        closeDB();
     }
+    
 ?>
 
 <!--Navigation Bar -->
@@ -46,11 +44,11 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="register-email">Email</label>
-                <input type="email" name="email" class="form-control" id="register-email" placeholder="Email" required>
+                <input type="email" name="email" class="form-control" id="register-email" placeholder="Email"  value="<?php echo isset($_POST['email'])? $_POST['email']: '';?>" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="register-username">Username</label>
-                <input type="text" name="username" class="form-control" id="register-username" placeholder="Username" required>
+                <input type="text" name="username" class="form-control" id="register-username" placeholder="Username"  value="<?php echo isset($_POST['username'])? $_POST['username']: '';?>" required>
             </div>
         </div>
         <div class="form-group row">
