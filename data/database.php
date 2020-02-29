@@ -49,27 +49,41 @@
             return true;
         }
     }
-    function checkIfUniqueUsername($username, $password){
+    function checkIfUniqueUsername($username, $uid){
         $sql = "SELECT username FROM users
-                WHERE upassword = '$password'
-                AND username = '$username'";
+                WHERE username = '$username'
+                AND  `uid` != '$uid'";
+        global $connection; 
+        $result = mysqli_query($connection, $sql);
+        if(mysqli_num_rows($result) == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function checkIfUniqueEmail($email, $uid){
+        $sql = "SELECT username FROM users
+                WHERE uemail = '$email'
+                AND `uid` != '$uid'";
+        global $connection; 
+        $result = mysqli_query($connection, $sql);
+        if(mysqli_num_rows($result) == 0){
+            return true;
+        }else{
+            return false;
+        }
 
+    }
+    function checkPassword($password, $uid){
+        $sql = "SELECT upassword FROM users
+        WHERE `uid` = '$uid' 
+        AND upassword = '$password'";
+        global $connection; 
         $result = mysqli_query($connection, $sql);
         if(mysqli_num_rows($result) == 0){
             return false;
         }else{
             return true;
-        }
-    }
-    function updateUsername($username, $uid){
-        $sql = "UPDATE users
-                SET username = '$username'
-                WHERE uid = '$uid";
-        $result = mysqli_query($connection, $sql);
-        if($result) {
-            return true;
-        } else {
-            return false;
         }
     }
     function registerUser($username, $password, $email, $type = 1, $pfp='img/default.png'){
@@ -84,7 +98,36 @@
             return false;
         }
     }
-
+    function updateUser($username, $password, $email, $uid){
+        $sql = "UPDATE users
+        SET username = '$username',
+            uemail = '$email',
+            upassword = '$password'
+        WHERE `uid` = '$uid'";
+        global $connection; 
+        $result = mysqli_query($connection, $sql);
+        if($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function retrieveUser(){
+        $sql = "SELECT * FROM users";
+        global $connection;
+        $result = mysqli_query($connection, $sql);
+        if(mysqli_num_rows($result) == 0){
+            return false;
+        }else{
+            $row = mysqli_fetch_array($result);
+            $client = array("uid" => $row['uid'],
+                        "username" => $row['username'],
+                        "uemail" => $row['uemail'],
+                        "utype" => $row['utype'],
+                        "upfp"  => $row['upfp']);
+            $_SESSION['client'] = $client;
+        }
+    }
     function checkLoginUser($username, $password){
         $sql = "SELECT * FROM users
         WHERE username = '$username'
@@ -98,6 +141,7 @@
             return true;
         }
     }
+
     function loginUser(){
         global $login;
         $row = mysqli_fetch_array($login);
