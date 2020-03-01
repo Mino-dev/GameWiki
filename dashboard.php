@@ -16,7 +16,7 @@
 	<body>
 		<div class="container-fluid">
 			<?php
-				include ('route/login-page.php');
+				include ('route/dashboard-page.php');
 			?>
 		</div>
 		<!-- Optional JavaScript -->

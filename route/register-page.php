@@ -11,7 +11,6 @@
                     if($cpassword==$password){
                         if(registerUser($username, $password, $email)){
                             echo "<script type='text/javascript'> window.location='login.php'; </script>";
-                            echo "I'm in!";
                         }else{
                             echo "registration oops";
                         }
@@ -32,8 +31,7 @@
 
 <!--Navigation Bar -->
 <header class="r:header-section header-section">
-    <?php
-        
+    <?php     
         include('template/navbar.php');
     ?>
 </header>
