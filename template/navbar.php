@@ -2,12 +2,12 @@
 	if(isset($_SESSION['id']) && isset($_SESSION['log'])){
 		$client = $_SESSION['client'];
 		
-		$editprofile= "<a class='dropdown-item' href='edit.php'>Edit Profile</a>";
+		$dashboard= "<a class='dropdown-item' href='dashboard.php'>Dashboard</a>";
 		$src = $client['upfp'];
 		$control = "<a class='dropdown-item' href='logout.php'>Log Out</a>";
 		$username = $client['username'];
 	}else{
-		$editprofile = "";
+		$dashboard = "";
 		$src = "img/default.png";
 		$control = "<a class='dropdown-item' href='login.php'>Log In</a>";
 		$username = "";
@@ -33,7 +33,7 @@
 							<img src="<?php echo $src;?>"	width="40" height="40" class="rounded-circle">
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<?php echo $editprofile;?>
+							<?php echo $dashboard;?>
 							<div class="dropdown-divider"></div>
 							<?php echo $control; ?>
 						</div>

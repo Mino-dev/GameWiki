@@ -1,9 +1,10 @@
 <header class="hp:header-section header-section"> 
     <?php
-        session_start();
+        
         require_once('data/database.php');
+        include('template/navbar.php');
         if(connectDB()){
-            include('template/navbar.php');
+            
             closeDB();
         }            
     ?>

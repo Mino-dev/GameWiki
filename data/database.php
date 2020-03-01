@@ -3,12 +3,12 @@
     global $login;
     function connectDB(){
         $db_host = "localhost";
-        //$db_username = "id12624664_gamewiki";
-        //$db_password = "phpfinals";
-        //$db_name = "id12624664_gamewiki";
-        $db_username = "root";
-		$db_password = "";
-        $db_name = "wiki";
+        $db_username = "id12624664_gamewiki";
+        $db_password = "gamewiki";
+        $db_name = "id12624664_gamewikiphp";
+        //$db_username = "root";
+		//$db_password = "";
+        //$db_name = "wiki";
 
         global $connection;
         $connection = mysqli_connect($db_host,
@@ -19,6 +19,20 @@
             return false;
         }else{
             return true;
+        }
+    }
+    function uploadImage($path, $uid){
+
+        $sql = "UPDATE users
+                SET upfp = '$path'
+                WHERE `uid` = '$uid'";
+        global $connection;
+        $result = mysqli_query($connection, $sql);
+        if($result){
+            return true;
+        }
+        else{
+            return false;
         }
     }
     function closeDB(){
@@ -112,11 +126,13 @@
             return false;
         }
     }
-    function retrieveUser(){
-        $sql = "SELECT * FROM users";
+    function retrieveUser($uid){
+        $sql = "SELECT * FROM users
+                WHERE `uid` = '$uid'";
         global $connection;
         $result = mysqli_query($connection, $sql);
         if(mysqli_num_rows($result) == 0){
+            
             return false;
         }else{
             $row = mysqli_fetch_array($result);
@@ -126,6 +142,7 @@
                         "utype" => $row['utype'],
                         "upfp"  => $row['upfp']);
             $_SESSION['client'] = $client;
+            return true;
         }
     }
     function checkLoginUser($username, $password){

@@ -1,11 +1,10 @@
-<?php
-    require_once('data/database.php'); 
-    if(connectDB()){
-        if(isset($_POST['login'])){
+<?php   
+    if(isset($_POST['login'])){
+        require_once('data/database.php'); 
+        if(connectDB()){
             $username = $_POST['username'];
             $password = $_POST['password'];
             if(checkLoginUser($username,$password)){
-                session_start();
                 loginUser();
                 $_SESSION['id'] = "login";
                 $_SESSION['log'] = true;
@@ -13,10 +12,10 @@
             }else{
                 echo "hi";
             }
+            closeDB();
         }
-        closeDB();
-    }
-    
+        
+    }  
 ?>
 <!--Navigation Bar -->
 <header class="l:header-section header-section">
