@@ -3,12 +3,12 @@
     global $login;
     function connectDB(){
         $db_host = "localhost";
-        $db_username = "id12624664_gamewiki";
-        $db_password = "gamewiki";
-        $db_name = "id12624664_gamewikiphp";
-        //$db_username = "root";
-		//$db_password = "";
-        //$db_name = "wiki";
+        //$db_username = "id12624664_gamewiki";
+        //$db_password = "gamewiki";
+        //$db_name = "id12624664_gamewikiphp";
+        $db_username = "root";
+		$db_password = "";
+        $db_name = "wiki";
 
         global $connection;
         $connection = mysqli_connect($db_host,
@@ -112,12 +112,13 @@
             return false;
         }
     }
-    function updateUser($username, $password, $email, $uid){
+    function updateUser($username, $password, $email, $path, $uid){
         $sql = "UPDATE users
-        SET username = '$username',
-            uemail = '$email',
-            upassword = '$password'
-        WHERE `uid` = '$uid'";
+                SET username = '$username',
+                    uemail = '$email',
+                    upassword = '$password',
+                    upfp = '$path'
+                WHERE `uid` = '$uid'";
         global $connection; 
         $result = mysqli_query($connection, $sql);
         if($result) {
