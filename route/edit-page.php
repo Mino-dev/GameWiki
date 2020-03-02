@@ -7,276 +7,66 @@
         $email = "";
         $username = "";
     }
+
     if(isset($_POST['edit'])){
+        
         require_once('data/database.php'); 
         if(connectDB()){
-            if(checkPassword($_POST['password'], $client['uid'])){
+            if(checkPassword(MD5($_POST['password']), $client['uid'])){
+                
+                $error = "";
+                $pass = true;
+                $password = MD5($_POST['password']);
+                $path = $client['upfp'];
+
                 if($_POST['email'] != $client['uemail']){
-                    if(handleUniqueEmail($_POST['email'], $client['uid'])){
-                        if($_POST['username'] != $client['username']){
-                            if(handleUniqueUsername($_POST['username'],$client['uid'])){
-                                if(isset($_POST['chpassword']) && isset($_POST['cpassword']) && !empty($_POST['chpassword'])){
-                                    if($_POST['chpassword'] == $_POST['cpassword']){
-                                        if(updateUser($_POST['username'],$_POST['cpassword'],$_POST['email'],$client['uid'])){
-                                            if(retrieveUser($client['uid'])){
-                                                if(file_exists($_FILES['image']['tmp_name']) || is_uploaded_file($_FILES['image']['tmp_name'])){
-                                                    
-                                                    $path = "img/profile_image/". $client['uid'] . time() . MD5($_FILES['image']['name']). ".png";
-                                                    $upload = move_uploaded_file($_FILES['image']['tmp_name'], $path);
-                                                    if($upload){
-                                                        if(uploadImage($path, $client['uid'])){
-                                                            $client['upfp'] = $path;
-                                                        }else{
-                                                            echo "error uploading to db";
-                                                        }
-                                                        
-                                                    }else{
-                                                        echo "error uploading to server";
-                                                    }
-                                                }
-                                                echo "<script type='text/javascript'> window.location='dashboard.php'; </script>";  
-                                            }else{
-                                                echo "retrieval failed";
-                                            }
-                                        }else{
-                                            echo "update user failed";
-                                        }
-                                    }else{
-                                        echo "oops passwords";
-                                    }
-                                }else{
-                                    if(updateUser($_POST['username'],$_POST['password'],$_POST['email'],$client['uid'])){
-                                        if(retrieveUser($client['uid'])){
-                                            if(file_exists($_FILES['image']['tmp_name']) || is_uploaded_file($_FILES['image']['tmp_name']) ){
-                                                
-                                                $path = "img/profile_image/". $client['uid'] . time() . MD5($_FILES['image']['name']). ".png";
-                                                $upload = move_uploaded_file($_FILES['image']['tmp_name'], $path);
-                                                if($upload){
-                                                    if(uploadImage($path, $client['uid'])){
-                                                        $client['upfp'] = $path;
-                                                    }else{
-                                                        echo "error uploading to db";
-                                                    }
-                                                    
-                                                }else{
-                                                    echo "error uploading to server";
-                                                }
-                                            }
-                                             echo "<script type='text/javascript'> window.location='dashboard.php'; </script>";
-                                        }else{
-                                            echo "retrieval failed";
-                                        }
-                                    }else{
-                                        echo "update user failed";
-                                    }
-                                }
-                            }else{
-                                echo "oops username already taken";
-                            }
-                        }else{
-                            if(isset($_POST['chpassword']) && isset($_POST['cpassword'])&& !empty($_POST['chpassword'])){
-                                if($_POST['chpassword'] == $_POST['cpassword']){
-                                    if(updateUser($_POST['username'],$_POST['cpassword'],$_POST['email'],$client['uid'])){
-                                        if(retrieveUser($client['uid'])){
-                                            if(file_exists($_FILES['image']['tmp_name']) || is_uploaded_file($_FILES['image']['tmp_name']) ){
-                                                
-                                                $path = "img/profile_image/". $client['uid'] . time() . MD5($_FILES['image']['name']). ".png";
-                                                $upload = move_uploaded_file($_FILES['image']['tmp_name'], $path);
-                                                if($upload){
-                                                    if(uploadImage($path, $client['uid'])){
-                                                        $client['upfp'] = $path;
-                                                    }else{
-                                                        echo "error uploading to db";
-                                                    }
-                                                    
-                                                }else{
-                                                    echo "error uploading to server";
-                                                }
-                                            }
-                                            echo "<script type='text/javascript'> window.location='dashboard.php'; </script>";
-                                        }else{
-                                            echo "retrieval failed";
-                                        }
-                                    }else{
-                                        echo "update user failed";
-                                    }
-                                }else{
-                                    echo "oops passwords";
-                                }
-                            }else{
-                                if(updateUser($_POST['username'],$_POST['password'],$_POST['email'],$client['uid'])){
-                                    if(retrieveUser($client['uid'])){
-                                        if(file_exists($_FILES['image']['tmp_name']) || is_uploaded_file($_FILES['image']['tmp_name']) ){
-                                            
-                                            $path = "img/profile_image/". $client['uid'] . time() . MD5($_FILES['image']['name']). ".png";
-                                            $upload = move_uploaded_file($_FILES['image']['tmp_name'], $path);
-                                            if($upload){
-                                                if(uploadImage($path, $client['uid'])){
-                                                    $client['upfp'] = $path;
-                                                }else{
-                                                    echo "error uploading to db";
-                                                }
-                                                
-                                            }else{
-                                                echo "error uploading to server";
-                                            }
-                                        }
-                                        echo "<script type='text/javascript'> window.location='dashboard.php'; </script>";
-                                    }else{
-                                        echo "retrieval failed";
-                                    }
-                                }else{
-                                    echo "update user failed";
-                                }
-                            }
-                        }
-                    }else{
-                        echo "oops email already taken";
-                    }
-                }else{
-                    if($_POST['username'] != $client['username']){
-                        if(handleUniqueUsername($_POST['username'],$client['uid'])){
-                            if(isset($_POST['chpassword']) && isset($_POST['cpassword']) && !empty($_POST['chpassword'])){
-                                if($_POST['chpassword'] == $_POST['cpassword']){
-                                    if(updateUser($_POST['username'],$_POST['cpassword'],$_POST['email'],$client['uid'])){
-                                        if(retrieveUser($client['uid'])){
-                                            if(file_exists($_FILES['image']['tmp_name']) || is_uploaded_file($_FILES['image']['tmp_name']) ){
-                                                
-                                                $path = "img/profile_image/". $client['uid'] . time() . MD5($_FILES['image']['name']). ".png";
-                                                $upload = move_uploaded_file($_FILES['image']['tmp_name'], $path);
-                                                if($upload){
-                                                    if(uploadImage($path, $client['uid'])){
-                                                        $client['upfp'] = $path;
-                                                    }else{
-                                                        echo "error uploading to db";
-                                                    }
-                                                    
-                                                }else{
-                                                    echo "error uploading to server";
-                                                }
-                                            }
-                                            echo "<script type='text/javascript'> window.location='dashboard.php'; </script>";
-                                        }else{
-                                            echo "retrieval failed";
-                                        }
-                                    }else{
-                                        echo "update user failed";
-                                    }
-                                }else{
-                                    echo "oops passwords";
-                                }
-                            }else{
-                                if(updateUser($_POST['username'],$_POST['password'],$_POST['email'],$client['uid'])){
-                                    if(retrieveUser($client['uid'])){
-                                        if(file_exists($_FILES['image']['tmp_name']) || is_uploaded_file($_FILES['image']['tmp_name']) ){
-                                            
-                                            $path = "img/profile_image/". $client['uid'] . time() . MD5($_FILES['image']['name']). ".png";
-                                            $upload = move_uploaded_file($_FILES['image']['tmp_name'], $path);
-                                            if($upload){
-                                                if(uploadImage($path, $client['uid'])){
-                                                    $client['upfp'] = $path;
-                                                }else{
-                                                    echo "error uploading to db";
-                                                }
-                                                
-                                            }else{
-                                                echo "error uploading to server";
-                                            }
-                                        }
-                                        echo "<script type='text/javascript'> window.location='dashboard.php'; </script>";
-                                    }else{
-                                        echo "retrieval failed";
-                                    }
-                                }else{
-                                    echo "update user failed";
-                                }
-                            }
-                        }else{
-                            echo "oops username already taken";
-                        }
-                    }else{
-                        if(isset($_POST['chpassword']) && isset($_POST['cpassword'])&& !empty($_POST['chpassword'])){
-                            if($_POST['chpassword'] == $_POST['cpassword']){
-                                if(updateUser($_POST['username'],$_POST['cpassword'],$_POST['email'],$client['uid'])){
-                                    if(retrieveUser($client['uid'])){
-                                        if(file_exists($_FILES['image']['tmp_name']) || is_uploaded_file($_FILES['image']['tmp_name']) ){
-                                            
-                                            $path = "img/profile_image/". $client['uid'] . time() . MD5($_FILES['image']['name']). ".png";
-                                            $upload = move_uploaded_file($_FILES['image']['tmp_name'], $path);
-                                            if($upload){
-                                                if(uploadImage($path, $client['uid'])){
-                                                    $client['upfp'] = $path;
-                                                }else{
-                                                    echo "error uploading to db";
-                                                }
-                                                
-                                            }else{
-                                               echo "error uploading to server";
-                                            }
-                                            
-                                        }
-                                        echo "<script type='text/javascript'> window.location='dashboard.php'; </script>";
-                                    }else{
-                                        echo "retrieval failed";
-                                    }
-                                }else{
-                                    echo "update user failed";
-                                }
-                            }else{
-                                echo "oops passwords";
-                            }
-                        }else{
-                            if(updateUser($_POST['username'],$_POST['password'],$_POST['email'],$client['uid'])){
-                                if(retrieveUser($client['uid'])){
-                                    if(file_exists($_FILES['image']['tmp_name']) || is_uploaded_file($_FILES['image']['tmp_name']) ){
-                                        
-                                        $path = "img/profile_image/". $client['uid'] . time() . MD5($_FILES['image']['name']). ".png";
-                                        $upload = move_uploaded_file($_FILES['image']['tmp_name'], $path);
-                                        if($upload){
-                                            if(uploadImage($path, $client['uid'])){
-                                                $client['upfp'] = $path;
-                                            }else{
-                                                echo "error uploading to db";
-                                            }
-                                            
-                                        }else{
-                                            echo "error uploading to server";
-                                        }
-                                    }
-                                    echo "<script type='text/javascript'> window.location='dashboard.php'; </script>";
-                                }else{
-                                    echo "retrieval failed";
-                                }
-                            }else{
-                                echo "update user failed";
-                            }
-                        }
+                    if(!checkIfUniqueEmail($email, $uid)){
+                        $error = "email already existing";
+                        $pass = false;
                     }
                 }
                 
+                if(isset($_POST['chpassword']) && isset($_POST['cpassword']) && !empty($_POST['chpassword'])){
+                    if(!$_POST['chpassword'] == $_POST['cpassword']){
+                        $error = "passwords do not match";
+                        $pass = false;
+                    }else{
+                        $password = MD5($_POST['cpassword']);
+                    }
+                } 
+                if(file_exists($_FILES['image']['tmp_name']) || is_uploaded_file($_FILES['image']['tmp_name'])){
+                    echo "hello";
+                    $temp_time = time();
+                    $file_name = $_FILES['image']['name'];
+                    $temp_name = $_FILES['image']['tmp_name'];
+                    $file_extension = explode(".", $file_name);
+                    $path = "img/profile_image/". $client['uid'] . $temp_time . MD5($file_name)."." .strtolower(end($file_extension));
+                    $upload = move_uploaded_file($temp_name, $path);
+                    if(!$upload){
+                        $pass = false;
+                        $error = "error uploading";   
+                    }
+                }
+                if($pass){
+                    if(updateUser($_POST['username'],$password,$_POST['email'],$path, $client['uid'])){
+                        if(retrieveUser($client['uid'])){
+                            echo "<script type='text/javascript'> window.location='dashboard.php'; </script>";
+                        }else{
+                            echo "error updating session";                            
+                        }
+                    }else{
+                        echo "error updating database";
+                    }
+                }else{
+                    echo $error;
+                }
             }else{
-                echo "oops password";
+                echo "wrong password";
             }
-            echo $client['upfp'];
             closeDB();
         }
     }
-    function handleUniqueEmail($email, $uid){
-        if(checkIfUniqueEmail($email, $uid)){
-            return true;
-        }else{
-            return false;
-        }
-    }
- 
-    function handleUniqueUsername($username, $uid){
-        if(checkIfUniqueUsername($username, $uid)){
-            return true;                 
-        }
-        else{
-            return false;
-        }
-    }
+    
 ?>
 <header class="e:header-section header-section">
     <?php

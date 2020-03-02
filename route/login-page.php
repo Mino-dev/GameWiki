@@ -3,7 +3,7 @@
         require_once('data/database.php'); 
         if(connectDB()){
             $username = $_POST['username'];
-            $password = $_POST['password'];
+            $password = MD5($_POST['password']);
             if(checkLoginUser($username,$password)){
                 loginUser();
                 $_SESSION['id'] = "login";

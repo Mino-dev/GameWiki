@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	if(!isset($_SESSION['log'])){
+	if(!isset($_SESSION['log']) || $_SESSION['client']['utype'] !=0){
         echo "<script type='text/javascript'> window.location='login.php'; </script>";
     }
 ?>
@@ -19,7 +19,7 @@
 	<body>
 		<div class="container-fluid">
 			<?php
-				include ('route/edit-page.php');
+				include ('route/admin-page.php');
 			?>
 		</div>
 		<!-- Optional JavaScript -->

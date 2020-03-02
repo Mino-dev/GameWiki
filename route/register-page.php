@@ -4,8 +4,8 @@
         if(isset($_POST['register'])){
             $email = $_POST['email'];
             $username = $_POST['username'];
-            $password = $_POST['password'];
-            $cpassword = $_POST['cpassword'];
+            $password = MD5($_POST['password']);
+            $cpassword = MD5($_POST['cpassword']);
             if(!isUsernameExisting($username)){
                 if(!isEmailExisting($email)){
                     if($cpassword==$password){
