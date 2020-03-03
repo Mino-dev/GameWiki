@@ -1,0 +1,14 @@
+.col-navbar{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+body{
+	background-image: url('../img/seabg.webp');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+.index-main{
+	background: #6497b1;
+}
