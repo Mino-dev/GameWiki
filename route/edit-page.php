@@ -68,12 +68,12 @@
     }
     
 ?>
-<header class="e:header-section header-section">
+<header class="header-section">
     <?php
         include('template/navbar.php'); 
     ?>
 </header>
-<section class="e:main-section container">
+<section class="section-main container">
     <form class="login-form" method="post" enctype="multipart/form-data">
         <div class="form-row">
             <div class="form-group col-md-6">

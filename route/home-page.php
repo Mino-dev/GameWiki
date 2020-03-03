@@ -1,62 +1,26 @@
+<?php
+	if(!isset($_SESSION['content'])){
+		$_SESSION['content'] = "ddd";
+	}
+	require_once('data/database.php');
+	if(connectDB()){ 
+		closeDB();
+	} 
+?>
+
 <header class="header-section sticky-top"> 
     <?php
-        
-        require_once('data/database.php');
-		include('template/navbar.php');
-        if(connectDB()){
-            
-            closeDB();
-        }            
+		include('template/navbar.php');          
     ?>
 
 </header>
-<section class="container index-main">
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
-	asdsadad<br>
+<section class="container section-main">
+	<?php
+		require('route/content/description.php');
+		require('route/content/trivia.php');
+		require('route/content/gameplay.php');
+		require('route/content/changelogs.php');
+		require('route/content/newsevents.php');
+	?>
 </section>
+
