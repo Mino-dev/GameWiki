@@ -9,6 +9,10 @@ body{
 	background-size: cover;
 	background-attachment: fixed;
 }
-.index-main{
-	background: #6497b1;
+.section-main{
+	background: #93bfd6;
+}
+
+.navbar-custom{
+	background: transparent;
 }

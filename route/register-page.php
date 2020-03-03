@@ -37,7 +37,7 @@
 </header>
 <!--End of Navigation Bar-->
 <!--Login Section -->
-<section class="r:main-section container">
+<section class="section-main container">
     <form class="login-form" method="post">
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -63,6 +63,8 @@
         </div>
         <button type="submit" name="register" class="btn btn-primary">Sign Up</button>
     </form>
+ 
+	<a href="login.php">Back to Login Page</a>
 </section>
 <!--End of Login Section -->
 <!--Footer Section-->

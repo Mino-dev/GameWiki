@@ -25,8 +25,8 @@
 </header>
 <!--End of Navigation Bar-->
 <!--Login Section -->
-<div class="col-4 align-center mx-auto">
-	<section class="main-section container">
+<div class="col-6 align-center mx-auto">
+	<section class="section-main container">
 		<form class="login-form" method="post">
 			<div class="form-group row">
 				<label for="login-username" class="col-sm-2 col-form-label">Username</label>
@@ -44,7 +44,7 @@
 		</form>
 
 		<h3>Don't have an account yet?</h3>
-		<a href="register.php" type="button" class="btn btn-primary btn-sm">Register Now!</a>
+		<a href="register.php">Register Now!</a>
 	</section>
 </div>
 <!--End of Login Section -->
