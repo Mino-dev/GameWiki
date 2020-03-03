@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2020 at 12:39 PM
--- Server version: 10.3.16-MariaDB
--- PHP Version: 7.3.6
+-- Generation Time: Mar 02, 2020 at 04:42 PM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,8 +29,22 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `content` (
-  `pagename` varchar(100) NOT NULL,
-  `pagecontent` longtext NOT NULL
+  `contentid` int(11) NOT NULL,
+  `contentpath` varchar(100) NOT NULL COMMENT 'JSON Path',
+  `contentpage` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `updatecontent`
+--
+
+CREATE TABLE `updatecontent` (
+  `updateid` int(11) NOT NULL COMMENT 'User ID',
+  `updatecontent` varchar(100) NOT NULL COMMENT 'JSON path',
+  `updatestate` int(11) NOT NULL,
+  `contentid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -60,6 +74,19 @@ INSERT INTO `users` (`uid`, `username`, `upassword`, `uemail`, `utype`, `upfp`) 
 --
 
 --
+-- Indexes for table `content`
+--
+ALTER TABLE `content`
+  ADD PRIMARY KEY (`contentid`);
+
+--
+-- Indexes for table `updatecontent`
+--
+ALTER TABLE `updatecontent`
+  ADD PRIMARY KEY (`updateid`),
+  ADD KEY `FK` (`contentid`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -74,6 +101,16 @@ ALTER TABLE `users`
 --
 ALTER TABLE `users`
   MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `updatecontent`
+--
+ALTER TABLE `updatecontent`
+  ADD CONSTRAINT `FK` FOREIGN KEY (`contentid`) REFERENCES `content` (`contentid`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

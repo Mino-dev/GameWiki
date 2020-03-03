@@ -2,3 +2,10 @@
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
+body {
+	background: #6497b1 url("/img/seabg.webp") no-repeat fixed 50% 50%;
+}
+
+.navbar-default {
+	background: transparent;
+}
