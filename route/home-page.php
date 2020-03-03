@@ -1,8 +1,8 @@
-<header class="hp:header-section header-section"> 
+<header class="header-section sticky-top"> 
     <?php
         
         require_once('data/database.php');
-        include('template/navbar.php');
+		include('template/navbar.php');
         if(connectDB()){
             
             closeDB();
@@ -10,3 +10,53 @@
     ?>
 
 </header>
+<section class="container index-main">
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+	asdsadad<br>
+</section>
