@@ -1,0 +1,7 @@
+body {
+	background: #6497b1 url("/css-res/seabg.webp") no-repeat fixed 50% 50%;
+}
+
+.navbar-default {
+	background: transparent;
+}
