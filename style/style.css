@@ -12,7 +12,18 @@ body{
 .section-main{
 	background: #93bfd6;
 }
-
 .navbar-custom{
 	background: transparent;
+}
+.col-lg-9 {
+  background: #93bfd6;
+}
+.right .container {
+  background: white;
+}
+#profilepic {
+  height: 255px;
+}
+footer {
+  background-color: #03396c;
 }
