@@ -15,4 +15,8 @@
     </div>
     <?php echo "$client[username] <br> $client[uemail] <br>" ?>
     <a href="edit.php">Edit Profile</a>
+    
 </section>
+<footer class="footer-section">
+    <?php include('template/footer.php'); ?>
+</footer>

@@ -23,4 +23,6 @@
 		require('route/content/newsevents.php');
 	?>
 </section>
-
+<footer class="footer-section">
+    <?php include('template/footer.php'); ?>
+</footer>

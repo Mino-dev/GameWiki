@@ -113,4 +113,8 @@
         
         <button type="submit" name="edit" class="btn btn-primary">Edit</button>
     </form>
+    <a href="dashboard.php">Back to Dashboard</a>
 </section>
+<footer class="footer-section">
+    <?php include('template/footer.php'); ?>
+</footer>

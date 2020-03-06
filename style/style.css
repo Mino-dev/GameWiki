@@ -11,19 +11,27 @@ body{
 }
 .section-main{
 	background: #93bfd6;
+	min-height: 95vh;
 }
 .navbar-custom{
 	background: transparent;
 }
 .col-lg-9 {
-  background: #93bfd6;
+ 	background: #93bfd6;
 }
 .right .container {
-  background: white;
+  	background: white;
 }
 #profilepic {
-  height: 255px;
+	height: 255px;
 }
-footer {
-  background-color: #03396c;
+.page-footer {
+  	background-color: #03396c;
+}
+
+html,body,.main-content{
+	min-height: 100%;
+}
+body{
+	min-height: 100%;
 }
