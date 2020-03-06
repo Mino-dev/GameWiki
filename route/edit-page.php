@@ -115,3 +115,6 @@
     </form>
     <a href="dashboard.php">Back to Dashboard</a>
 </section>
+<footer class="fixed-bottom footer-section">
+    <?php include('template/footer.php'); ?>
+</footer>

@@ -36,7 +36,7 @@
     ?>
 </header>
 <!--End of Navigation Bar-->
-<!--Login Section -->
+<!--Register Section -->
 <section class="section-main container">
     <form class="login-form" method="post">
         <div class="form-row">
@@ -66,5 +66,9 @@
  
 	<a href="login.php">Back to Login Page</a>
 </section>
-<!--End of Login Section -->
+<!--End of Register Section -->
 <!--Footer Section-->
+<footer class="fixed-bottom footer-section">
+    <?php include('template/footer.php'); ?>
+</footer>
+<!--End of Footer Section-->

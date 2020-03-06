@@ -12,3 +12,6 @@
 </header>
 <section class="section-main containter">
 </section>
+<footer class="fixed-bottom footer-section">
+    <?php include('template/footer.php'); ?>
+</footer>
