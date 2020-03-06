@@ -68,7 +68,7 @@
 </section>
 <!--End of Register Section -->
 <!--Footer Section-->
-<footer class="fixed-bottom footer-section">
+<footer class="footer-section">
     <?php include('template/footer.php'); ?>
 </footer>
 <!--End of Footer Section-->

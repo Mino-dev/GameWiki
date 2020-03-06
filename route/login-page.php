@@ -49,6 +49,6 @@
 </div>
 <!--End of Login Section -->
 <!--Footer Section-->
-<footer class="fixed-bottom footer-section">
+<footer class="footer-section">
     <?php include('template/footer.php'); ?>
 </footer>

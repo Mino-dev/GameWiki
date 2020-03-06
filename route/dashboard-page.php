@@ -17,6 +17,6 @@
     <a href="edit.php">Edit Profile</a>
     
 </section>
-<footer class="fixed-bottom footer-section">
+<footer class="footer-section">
     <?php include('template/footer.php'); ?>
 </footer>
