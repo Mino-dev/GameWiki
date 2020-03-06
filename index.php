@@ -15,7 +15,7 @@
 	</head>
 	<body>
 	
-		<div class="container-fluid">
+		<div class="container-fluid main-content">
 			<?php
 				include ('route/home-page.php');
 			?>

@@ -11,7 +11,7 @@
 		<title>Wiki</title>
 	</head>
 	<body>
-		<div class="container-fluid">
+		<div class="container-fluid main-content">
 			<?php
 				include ('route/register-page.php');
 			?>
