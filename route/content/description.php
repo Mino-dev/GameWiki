@@ -1,30 +1,55 @@
 <?php
 	if(isset($_SESSION['log']) && !isset($_POST['d_edit'])){
         if(isset($_POST['d_save'])){
-            $_SESSION['content'] = $_POST['textdesc'];
+            $changes = true;
+            $_SESSION['content']['desc'] = $_POST['textdesc'];
+            
         }
 ?>
-    <h1>Description</h1>
-    <?php echo $_SESSION['content']?>
     <form method="post">
-        <button type="submit" name="d_edit" class="btn btn-primary">Edit</button>
+        <div class="form-row">
+            <div class='col-6'>
+                <h1>Description</h1>
+            </div>
+            <div class='col-6'>
+                <button type="submit" name="d_edit" class="btn btn-primary">Edit</button>
+            </div>
+        </div>
+        <div class="form-row">
+            <?php echo$_SESSION['content']['desc']?>
+        </div>
     </form>	
-        
+
 <?php	
 	}else if(isset($_POST['d_edit'])){
 ?>
-    <form method="post">
-        <div class='form-group'>
-            <label for='textdesc'>Description</label>
-            <textarea class='form-control' name='textdesc' id='textdesc' rows='3'><?php echo $_SESSION['content']?></textarea>
+    
+    <form method="post">     
+        <div class="form-row">
+            <div class='col-6'>
+                <h1>Description</h1>
+            </div>
+            <div class='col-6'>
+                <button type="submit" name="d_save" class="btn btn-primary">Confirm Edit</button>
+            </div>
         </div>
-        <button type='submit' name='d_save' class='btn btn-primary'>Save</button>
+        <div class="form-row">
+            <div class="col-12">
+                <textarea autofocus class='form-control' name='textdesc' id='textdesc' rows='7'><?php echo$_SESSION['content']['desc']?></textarea>
+            </div>
+        </div>
     </form>
 <?php    
     }else{
 ?>  
-    <h1>Description</h1>
-    <?php echo $_SESSION['content']?>
+    <div class="row">
+        <div class="col-12">
+        <h1>Description</h1>
+        </div>
+        <div class="col-12">
+            <?php echo$_SESSION['content']['desc']?>
+        </div>
+    </div>    
 <?php 
     }
 ?>

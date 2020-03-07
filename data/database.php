@@ -21,6 +21,67 @@
             return true;
         }
     }
+    function getContent(){
+        $sql = "SELECT contentpath FROM content";
+        global $connection;
+        $result = mysqli_query($connection, $sql);
+        if(mysqli_num_rows($result) == 0){
+            return false;
+        }else{
+            $row = mysqli_fetch_array($result);
+            return $row['contentpath'];
+        }
+    }
+    function pushUpdates($path, $contentid){
+        $sql = "UPDATE content
+                SET contentpath = '$path'
+                WHERE `contentid` = '$contentid'";
+        global $connection;
+        $result = mysqli_query($connection, $sql);
+        if($result){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    function getPendingUpdates(){
+        $sql = "SELECT updatepath FROM updates
+                WHERE updatetag = 1";
+        global $connection;
+        $result = mysqli_query($connection, $sql);
+        if(mysqli_num_rows($result) == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    function setUpdateTag($tag, $updateid){
+        $sql = "UPDATE updates
+                SET updatetag = '$tag'
+                WHERE `updateid` = '$updateid'";
+        global $connection;
+        $result = mysqli_query($connection, $sql);
+        if($result){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    function insertContent($path, $uid, $updatetag = 1){
+        $sql = "INSERT INTO updates(updatepath, updatetag, uid)
+                VALUES('$path', '$updatetag', '$uid')";
+        global $connection;
+        $result = mysqli_query($connection, $sql);
+        if($result){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
     function uploadImage($path, $uid){
 
         $sql = "UPDATE users

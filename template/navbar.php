@@ -1,5 +1,5 @@
 <?php
-	if(isset($_SESSION['id']) && isset($_SESSION['log'])){
+	if(isset($_SESSION['log'])&& $_SESSION['log']){
 		$client = $_SESSION['client'];
 		$usn = "<a class='dropdown-item'>$client[username]</a>";
 		$type = $client['utype'];
