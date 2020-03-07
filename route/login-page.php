@@ -6,7 +6,6 @@
             $password = MD5($_POST['password']);
             if(checkLoginUser($username,$password)){
                 loginUser();
-                $_SESSION['id'] = "login";
                 $_SESSION['log'] = true;
                 echo "<script type='text/javascript'> window.location='index.php'; </script>";
             }else{

@@ -1,6 +1,6 @@
 <?php
     session_start();
-    session_unset();
-
+    unset($_SESSION['client']);
+    unset($_SESSION['log']);
     header("Location: index.php");
 ?>

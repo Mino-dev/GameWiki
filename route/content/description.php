@@ -3,6 +3,7 @@
         if(isset($_POST['d_save'])){
             $changes = true;
             $_SESSION['content']['desc'] = $_POST['textdesc'];
+            
         }
 ?>
     <form method="post">

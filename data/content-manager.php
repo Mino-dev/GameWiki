@@ -1,7 +1,21 @@
 <?php 
     if(isset($_SESSION['log'])){
         if(isset($_POST['consave'])&&isset($_SESSION['content'])){
-            file_put_contents("data/content-json/JSON_SAMPLE.json",json_encode($_SESSION['content'],JSON_PRETTY_PRINT));
+            if($_SESSION['client']['utype'] == 0){
+                $dir = "data/stat_content/content.json";
+                file_put_contents($dir,json_encode($_SESSION['content'],JSON_PRETTY_PRINT));  
+                if(!pushUpdates($dir, $_SESSION['content']['contentid'])){
+                    echo "fail to update";
+                }
+            }else{
+                $temp_time=time();
+                $dir = "data/dyn_content/content" . $temp_time . "copy.json";
+                file_put_contents($dir,json_encode($_SESSION['content'],JSON_PRETTY_PRINT));
+                $uid = $_SESSION['client']['uid'];  
+                if(!insertContent($dir, $uid)){
+                    echo "fail to update";
+                }
+            }   
         }
     if($changes){
 ?>

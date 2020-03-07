@@ -4,8 +4,9 @@
 	if(connectDB()){
 		
 		if(!isset($_SESSION['content'])){
-			if(file_exists("data/content-json/JSON_SAMPLE.json")){	
-				$content = json_decode(file_get_contents("data/content-json/JSON_SAMPLE.json"),true);
+			$dir = getContent();
+			if($dir !== false){
+				$content = json_decode(file_get_contents($dir),true);
 			}
 			else{
 				$content = array(
@@ -19,8 +20,6 @@
 			$_SESSION['content'] = $content;
 			$changes = false;
 		}
-		closeDB();
-	} 
 ?>
 
 <header class="header-section sticky-top"> 
@@ -31,13 +30,14 @@
 </header>
 <section class="container section-main">
 	<?php
-		
 		require('route/content/description.php');
 		require('route/content/trivia.php');
 		require('route/content/gameplay.php');	
 		require('route/content/newsevents.php');
 		require('route/content/feature-image.php');
 		require('data/content-manager.php');
+		closeDB();
+		}
 	?>
 </section>
 <footer class="footer-section">
