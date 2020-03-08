@@ -1,4 +1,5 @@
 <?php 
+    
     if(isset($_SESSION['log'])){
         if(isset($_POST['consave'])&&isset($_SESSION['content'])){
             if($_SESSION['client']['utype'] == 0){

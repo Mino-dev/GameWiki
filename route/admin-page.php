@@ -1,22 +1,160 @@
+<?php
+    
+    require_once('data/database.php');
+    if(connectDB()){
+        if(isset($_SESSION['content'])){
+            $updates = getPendingUpdates();
+        }
+        if(isset($_POST['accept_yes'])&& isset($updates)  && isset($_SESSION['forupdate']) ){
+            if($_SESSION['forupdate']){
+                $acceptupdates = $updates[$_SESSION['admin_util']];
+                if(isset($acceptupdates) && $acceptupdates !=null){
+                    $dir = "data/stat_content/content.json";
+                    $content = json_decode(file_get_contents($acceptupdates['updatepath']),true);
+                    file_put_contents($dir,json_encode($content,JSON_PRETTY_PRINT)); 
+                    $_SESSION['content'] = $content;
+                    setUpdateTag(0,$acceptupdates['updateid']);
+                    echo "<script type='text/javascript'> window.location='admin.php'; </script>";
+                }
+            }
+        }else if(isset($_POST['edit_yes'])&& isset($updates) && isset($_SESSION['forupdate'])){
+            if($_SESSION['forupdate']){
+                $acceptupdates = $updates[$_SESSION['admin_util']];
+                if(isset($acceptupdates) && $acceptupdates !=null){
+                    $content = json_decode(file_get_contents($acceptupdates['updatepath']),true);
+                    $_SESSION['content'] = $content; 
+                    $_SESSION['forupdate']=false;
+                    echo "<script type='text/javascript'> window.location='admin.php'; </script>";
+                }
+            }
+        }else if(isset($_POST['reject_yes'])&& isset($updates) && isset($_SESSION['forupdate'])){
+            if($_SESSION['forupdate']){
+                $acceptupdates = $updates[$_SESSION['admin_util']];
+                if(isset($acceptupdates) && $acceptupdates !=null){
+                    $dir = "data/stat_content/content.json";
+                    $content = json_decode($dir,true);
+                    $_SESSION['content'] = $content;
+                    $_SESSION['forupdate']=false;
+                    setUpdateTag(0,$acceptupdates['updateid']);
+                    echo "<script type='text/javascript'> window.location='admin.php'; </script>";
+                }
+               
+            }
+            
+        }else if(isset($_POST['revert_yes']) && isset($_SESSION['forupdate'])){
+            if($_SESSION['forupdate']){
+                $dir = "data/stat_content/content.json";
+                $content = json_decode($dir,true);
+                $_SESSION['content'] = $content;
+                $_SESSION['forupdate']=false;
+                echo "<script type='text/javascript'> window.location='admin.php'; </script>";
+            }
+            
+            
+        }
+        closeDB();
+    }    
+    
+?>
 <header class="header-section"> 
     <?php
-        
-        require_once('data/database.php');
-        include('template/navbar.php');
-        if(connectDB()){
-            if(isset($_SESSION['content'])){
-                $updates = getPendingUpdates();
-            }
-            closeDB();
-        }         
+        include('template/navbar.php');   
     ?>
-
 </header>
 <section class="section-main containter">
+    <!-- Modal -->
+    <div class="modal fade" id="acceptChanges" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Do you want these changes applied to the main content?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>This will load and save the changes permanently to the content.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <form method="post">
+                        <button type="submit" name="accept_yes" class="btn btn-primary">Yes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="editChanges" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Are you sure you want to edit the user's requested content?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>This will load the data to current session.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <form method="post">
+                        <button type="submit" name="edit_yes" class="btn btn-primary">Yes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="rejectChanges" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Are you sure you want to reject the user's requested content?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>This will reject the changes done by the user.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <form method="post">
+                        <button type="submit" name="reject_yes" class="btn btn-primary">Yes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="revert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Are you sure you want to revert to original content?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>This will reload the content back to last save.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <form method="post">
+                        <button type="submit" name="revert_yes" class="btn btn-primary">Yes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="accordion">
     <?php
-        if(isset($updates)){
-            foreach($updates as $content_updates){
+        if(isset($updates) && $updates != null){
+           
+            foreach($updates as $key=>$content_updates){
     ?>
                 <div class="card">
                     <div class="card-header" id="heading<?php echo $content_updates['updateid']?>">
@@ -56,26 +194,27 @@
                                 <?php echo$updatable['nwev']?>
                             </div>
                             <div class="col-12">
-                                <img src="<?php echo$updatable['fimg']?>" alt="featured image">
+                                <img src="<?php echo $updatable['fimg']?>" alt="featured image">
                             </div>
                         </div>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-secondary active">
-                                <input type="radio" name="options" id="option1" autocomplete="off"> Accept
-                            </label>
-                            <label class="btn btn-secondary">
-                                <input type="radio" name="options" id="option2" autocomplete="off"> Edit
-                            </label>
-                            <label class="btn btn-secondary">
-                                <input type="radio" name="options" id="option3" autocomplete="off"> Reject
-                            </label>
-                        </div>
+                        <button class="adminEdit" id="buttonAccept" data-toggle="modal" data-target="#acceptChanges" value="<?php echo $key;?>"> 
+                            Accept<?php echo $key;?>
+                        </button>
+                        <button class="adminEdit" id="buttonEdit" data-toggle="modal" data-target="#editChanges" value="<?php echo $key;?>"> 
+                            Edit<?php echo $key;?>
+                        </button> 
+                        <button class="adminEdit" id="buttonReject" data-toggle="modal" data-target="#rejectChanges" value="<?php echo $key;?>"> 
+                            Reject<?php echo $key;?>
+                        </button>                    
                     </div>
-                    
-                </div>
-                
+                </div> 
+                  
     <?php   
-            }
+            }?>
+            <button class="adminEdit" data-toggle="modal" data-target="#revert" value="-1"> 
+                Revert to Original
+            </button>  
+        <?php
         }else{
             echo "Nothing to display here. Move Along.";
         }

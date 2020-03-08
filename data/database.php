@@ -21,17 +21,6 @@
             return true;
         }
     }
-    function getContent(){
-        $sql = "SELECT * FROM content";
-        global $connection;
-        $result = mysqli_query($connection, $sql);
-        if(mysqli_num_rows($result) == 0){
-            return false;
-        }else{
-            $row = mysqli_fetch_array($result);
-            return $row;
-        }
-    }
     function getPendingUpdates(){
         $sql = "SELECT * FROM updates
                 WHERE updatetag = 1";
@@ -47,7 +36,7 @@
     function setUpdateTag($tag, $updateid){
         $sql = "UPDATE updates
                 SET updatetag = '$tag'
-                WHERE `updateid` = '$updateid'";
+                WHERE updateid = '$updateid'";
         global $connection;
         $result = mysqli_query($connection, $sql);
         if($result){

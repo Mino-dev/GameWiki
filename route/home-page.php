@@ -4,10 +4,10 @@
 	if(connectDB()){
 		
 		if(!isset($_SESSION['content'])){
-			$dir = getContent();
-			if($dir !== false){
-				$content = json_decode(file_get_contents($dir['contentpath']),true);
-				$_SESSION['contentid'] = $dir['contentid'];
+			$dir = "data/stat_content/content.json";;
+			if(file_exists($dir)){
+				$content = json_decode(file_get_contents($dir),true);
+				$_SESSION['contentid'] = $dir;
 			}
 			else{
 				$content = array(
