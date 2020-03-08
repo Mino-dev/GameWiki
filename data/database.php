@@ -22,38 +22,26 @@
         }
     }
     function getContent(){
-        $sql = "SELECT contentpath FROM content";
+        $sql = "SELECT * FROM content";
         global $connection;
         $result = mysqli_query($connection, $sql);
         if(mysqli_num_rows($result) == 0){
             return false;
         }else{
             $row = mysqli_fetch_array($result);
-            return $row['contentpath'];
-        }
-    }
-    function pushUpdates($path, $contentid){
-        $sql = "UPDATE content
-                SET contentpath = '$path'
-                WHERE `contentid` = '$contentid'";
-        global $connection;
-        $result = mysqli_query($connection, $sql);
-        if($result){
-            return true;
-        }
-        else{
-            return false;
+            return $row;
         }
     }
     function getPendingUpdates(){
-        $sql = "SELECT updatepath FROM updates
+        $sql = "SELECT * FROM updates
                 WHERE updatetag = 1";
         global $connection;
         $result = mysqli_query($connection, $sql);
         if(mysqli_num_rows($result) == 0){
             return false;
         }else{
-            return true;
+            $row = mysqli_fetch_all($result,MYSQLI_ASSOC);
+            return $row;
         }
     }
     function setUpdateTag($tag, $updateid){
