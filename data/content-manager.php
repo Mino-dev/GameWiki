@@ -4,9 +4,6 @@
             if($_SESSION['client']['utype'] == 0){
                 $dir = "data/stat_content/content.json";
                 file_put_contents($dir,json_encode($_SESSION['content'],JSON_PRETTY_PRINT));  
-                if(!pushUpdates($dir, $_SESSION['content']['contentid'])){
-                    echo "fail to update";
-                }
             }else{
                 $temp_time=time();
                 $dir = "data/dyn_content/content" . $temp_time . "copy.json";

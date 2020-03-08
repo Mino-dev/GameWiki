@@ -24,7 +24,9 @@
             </div>
         </div>
         <div class="form-row">
-            <image src="<?php echo$_SESSION['content']['fimg']?>">
+            <div class="col-12">
+                <image src="<?php echo$_SESSION['content']['fimg']?>">
+            </div>
         </div>
     </form>	
 
