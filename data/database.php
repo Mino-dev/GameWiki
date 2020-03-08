@@ -3,12 +3,12 @@
     global $login;
     function connectDB(){
         $db_host = "localhost";
-        $db_username = "id12624664_gamewiki";
-        $db_password = "gamewiki";
-        $db_name = "id12624664_gamewikiphp";
-        //$db_username = "root";
-		//$db_password = "";
-       // $db_name = "wiki";
+        //$db_username = "id12624664_gamewiki";
+        //$db_password = "gamewiki";
+        //$db_name = "id12624664_gamewikiphp";
+        $db_username = "root";
+	    $db_password = "";
+        $db_name = "wiki";
 
         global $connection;
         $connection = mysqli_connect($db_host,
