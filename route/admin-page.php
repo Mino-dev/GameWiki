@@ -2,6 +2,7 @@
     
     require_once('data/database.php');
     if(connectDB()){
+        
         if(isset($_SESSION['content'])){
             $updates = getPendingUpdates();
         }
@@ -32,7 +33,7 @@
                 $acceptupdates = $updates[$_SESSION['admin_util']];
                 if(isset($acceptupdates) && $acceptupdates !=null){
                     $dir = "data/stat_content/content.json";
-                    $content = json_decode($dir,true);
+                    $content = json_decode(file_get_contents($dir),true);
                     $_SESSION['content'] = $content;
                     $_SESSION['forupdate']=false;
                     setUpdateTag(0,$acceptupdates['updateid']);
@@ -41,10 +42,10 @@
                
             }
             
-        }else if(isset($_POST['revert_yes']) && isset($_SESSION['forupdate'])){
+        }else if(isset($_POST['revert_yes']) && isset($updates) && isset($_SESSION['forupdate'])){
             if($_SESSION['forupdate']){
                 $dir = "data/stat_content/content.json";
-                $content = json_decode($dir,true);
+                $content = json_decode(file_get_contents($dir), true);
                 $_SESSION['content'] = $content;
                 $_SESSION['forupdate']=false;
                 echo "<script type='text/javascript'> window.location='admin.php'; </script>";
@@ -52,6 +53,7 @@
             
             
         }
+        
         closeDB();
     }    
     
@@ -198,13 +200,13 @@
                             </div>
                         </div>
                         <button class="adminEdit" id="buttonAccept" data-toggle="modal" data-target="#acceptChanges" value="<?php echo $key;?>"> 
-                            Accept<?php echo $key;?>
+                            Accept
                         </button>
                         <button class="adminEdit" id="buttonEdit" data-toggle="modal" data-target="#editChanges" value="<?php echo $key;?>"> 
-                            Edit<?php echo $key;?>
+                            Edit
                         </button> 
                         <button class="adminEdit" id="buttonReject" data-toggle="modal" data-target="#rejectChanges" value="<?php echo $key;?>"> 
-                            Reject<?php echo $key;?>
+                            Reject
                         </button>                    
                     </div>
                 </div> 

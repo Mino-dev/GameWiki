@@ -4,7 +4,7 @@
 	if(connectDB()){
 		
 		if(!isset($_SESSION['content'])){
-			$dir = "data/stat_content/content.json";;
+			$dir = "data/stat_content/content.json";
 			if(file_exists($dir)){
 				$content = json_decode(file_get_contents($dir),true);
 				$_SESSION['contentid'] = $dir;
