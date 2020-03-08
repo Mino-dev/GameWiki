@@ -14,6 +14,7 @@
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 		<link rel="stylesheet" href="style/style.css" type="text/css">
+		
 		<title>Wiki</title>
 	</head>
 	<body>
@@ -27,5 +28,27 @@
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript">
+
+			var elements = document.getElementsByClassName("adminEdit");
+			var getValues = function() {
+				var attribute = $(this).attr("value");
+				alert(attribute);
+				$.ajax({
+					url : 'data/admin-handle-session.php',
+					type : 'POST',
+					data: {
+						updatedata : attribute,
+					},
+					error : function(XMLHttpRequest, textStatus, errorThrown){
+						alert ("Error Occured");
+					}
+				});
+			};
+			for (var i = 0; i < elements.length; i++) {
+				elements[i].addEventListener('click', getValues, false);
+			}			
+		</script>
 	</body>
 </html>

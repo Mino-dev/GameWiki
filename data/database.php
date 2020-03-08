@@ -3,12 +3,12 @@
     global $login;
     function connectDB(){
         $db_host = "localhost";
-        //$db_username = "id12624664_gamewiki";
-        //$db_password = "gamewiki";
-        //$db_name = "id12624664_gamewikiphp";
-        $db_username = "root";
-		$db_password = "";
-        $db_name = "wiki";
+        $db_username = "id12624664_gamewiki";
+        $db_password = "gamewiki";
+        $db_name = "id12624664_gamewikiphp";
+        //$db_username = "root";
+		//$db_password = "";
+       // $db_name = "wiki";
 
         global $connection;
         $connection = mysqli_connect($db_host,
@@ -19,17 +19,6 @@
             return false;
         }else{
             return true;
-        }
-    }
-    function getContent(){
-        $sql = "SELECT * FROM content";
-        global $connection;
-        $result = mysqli_query($connection, $sql);
-        if(mysqli_num_rows($result) == 0){
-            return false;
-        }else{
-            $row = mysqli_fetch_array($result);
-            return $row;
         }
     }
     function getPendingUpdates(){
@@ -47,7 +36,7 @@
     function setUpdateTag($tag, $updateid){
         $sql = "UPDATE updates
                 SET updatetag = '$tag'
-                WHERE `updateid` = '$updateid'";
+                WHERE updateid = '$updateid'";
         global $connection;
         $result = mysqli_query($connection, $sql);
         if($result){
