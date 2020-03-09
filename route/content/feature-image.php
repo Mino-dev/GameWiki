@@ -11,15 +11,19 @@
                 if(!$upload){
                     $error = "error uploading";   
                 }
+
             }
-            $changes = true;
             $_SESSION['content']['fimg'] = $path;
+            $_SESSION['changes'] = true;	
         }
         
 ?>
     <form method="post">
         <div class="form-row">
-            <div class='col-12'>
+            <div class="col-6">
+                <h1>Featured Image</h1>
+            </div>
+            <div class='col-6'>
                 <button type="submit" name="f_edit" class="btn btn-primary">Edit</button>
             </div>
         </div>
@@ -36,7 +40,10 @@
     
     <form method="post" enctype="multipart/form-data">     
         <div class="form-row">
-            <div class='col-12'>
+            <div class="col-6">
+                <h1>Featured Image</h1>
+            </div>
+            <div class='col-6'>
                 <button type="submit" name="f_save" class="btn btn-primary">Confirm Edit</button>
             </div>
         </div>
@@ -50,8 +57,11 @@
     }else{
 ?>  
     <div class="row">
-        <div class="col-12">
-        <h1>Description</h1>
+        <div class="col-6">
+            <h1>Featured Image</h1>
+        </div>
+        <div class='col-6'>
+           
         </div>
         <div class="col-12">
             <image src="<?php echo$_SESSION['content']['fimg']?>">

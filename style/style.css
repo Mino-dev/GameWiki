@@ -35,3 +35,6 @@ html,body,.main-content{
 body{
 	min-height: 100%;
 }
+[contenteditable="true"]{
+	background: #fdfdfd;
+}
