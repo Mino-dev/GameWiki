@@ -2,6 +2,7 @@
     
     if(isset($_SESSION['log'])){
         if(isset($_POST['consave'])&&isset($_SESSION['content'])){
+            $_SESSION['changes'] = false;	
             if($_SESSION['client']['utype'] == 0){
                 $dir = "data/stat_content/content.json";
                 file_put_contents($dir,json_encode($_SESSION['content'],JSON_PRETTY_PRINT));  
@@ -14,11 +15,15 @@
                     echo "fail to update";
                 }
             }   
-        }
-    if($changes){
+        }          
 ?>
+    
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#saveChanges">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#saveChanges" <?php 
+        if(!$_SESSION['changes']){
+            echo "disabled"; 
+        }
+    ?>>
         Save Changes
     </button>
 
@@ -35,14 +40,13 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <form method="post">
-                        <button type="submit" name="consave" class="btn btn-primary">Save changes</button>
+                        <button id= 'consave' type="submit" name="consave" class="btn btn-primary">Save changes</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 <?php
-    }
 }
 
 ?>

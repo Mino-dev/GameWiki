@@ -102,9 +102,10 @@
         }
     }
     function checkIfUniqueUsername($username, $uid){
+        echo "$uid";
         $sql = "SELECT username FROM users
-                WHERE username = '$username'
-                AND  `uid` != '$uid'";
+                WHERE  username = '$username'
+                AND `uid` != $uid";
         global $connection; 
         $result = mysqli_query($connection, $sql);
         if(mysqli_num_rows($result) == 0){
@@ -171,7 +172,6 @@
         global $connection;
         $result = mysqli_query($connection, $sql);
         if(mysqli_num_rows($result) == 0){
-            
             return false;
         }else{
             $row = mysqli_fetch_array($result);

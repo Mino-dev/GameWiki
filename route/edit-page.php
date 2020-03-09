@@ -3,10 +3,7 @@
         $client = $_SESSION['client'];
         $email = $client['uemail'];
         $username = $client['username'];
-	}else{
-        $email = "";
-        $username = "";
-    }
+	}
 
     if(isset($_POST['edit'])){
         
@@ -20,12 +17,17 @@
                 $path = $client['upfp'];
 
                 if($_POST['email'] != $client['uemail']){
-                    if(!checkIfUniqueEmail($email, $uid)){
+                    if(!checkIfUniqueEmail($_POST['email'],$client['uid'])){
                         $error = "email already existing";
                         $pass = false;
                     }
                 }
-                
+                if($_POST['username'] != $client['username']){
+                    if(!checkIfUniqueUsername($_POST['username'], $client['uid'])){
+                        $error = "username already existing";
+                        $pass = false;
+                    }
+                }
                 if(isset($_POST['chpassword']) && isset($_POST['cpassword']) && !empty($_POST['chpassword'])){
                     if(!$_POST['chpassword'] == $_POST['cpassword']){
                         $error = "passwords do not match";
