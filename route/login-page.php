@@ -7,6 +7,7 @@
             $password = MD5(strip_tags($_POST['password']));
             if(loginUser($username,$password)){
                 $_SESSION['log'] = true;
+                $error="";
                 echo "<script type='text/javascript'> window.location='index.php'; </script>";
             }else{
                 $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
