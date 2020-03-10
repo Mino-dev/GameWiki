@@ -1,4 +1,5 @@
 <?php
+    $error = "";
     if(isset($_SESSION['log'])&&$_SESSION['log']){
         $client = $_SESSION['client'];
         $email = $client['uemail'];
@@ -9,60 +10,95 @@
         
         require_once('data/database.php'); 
         if(connectDB()){
-            if(checkPassword(MD5($_POST['password']), $client['uid'])){
-                
-                $error = "";
+            $password = MD5(strip_tags($_POST['password']));
+            if(checkPassword($password, $client['uid'])){
                 $pass = true;
-                $password = MD5($_POST['password']);
-                $path = $client['upfp'];
+                $username = strip_tags($_POST['username']);
+                $email = strip_tags($_POST['email']);
+                $chpassword = strip_tags($_POST['chpassword']);
+                $cpassword= strip_tags($_POST['cpassword']); 
+                
 
-                if($_POST['email'] != $client['uemail']){
-                    if(!checkIfUniqueEmail($_POST['email'],$client['uid'])){
-                        $error = "email already existing";
-                        $pass = false;
-                    }
-                }
-                if($_POST['username'] != $client['username']){
-                    if(!checkIfUniqueUsername($_POST['username'], $client['uid'])){
-                        $error = "username already existing";
-                        $pass = false;
-                    }
-                }
-                if(isset($_POST['chpassword']) && isset($_POST['cpassword']) && !empty($_POST['chpassword'])){
-                    if(!$_POST['chpassword'] == $_POST['cpassword']){
-                        $error = "passwords do not match";
-                        $pass = false;
-                    }else{
-                        $password = MD5($_POST['cpassword']);
-                    }
-                } 
-                if(file_exists($_FILES['image']['tmp_name']) || is_uploaded_file($_FILES['image']['tmp_name'])){
-                    $temp_time = time();
-                    $file_name = $_FILES['image']['name'];
-                    $temp_name = $_FILES['image']['tmp_name'];
-                    $file_extension = explode(".", $file_name);
-                    $path = "img/profile_image/". $client['uid'] . $temp_time . MD5($file_name)."." .strtolower(end($file_extension));
-                    $upload = move_uploaded_file($temp_name, $path);
-                    if(!$upload){
-                        $pass = false;
-                        $error = "error uploading";   
+                $path = $client['upfp'];
+                if($pass){
+                    if($email != $client['uemail']){
+                        if(!checkIfUniqueEmail($_POST['email'],$client['uid'])){
+                            $error =    "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                            <strong>Email already existing!</strong> 
+                                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                <span aria-hidden='true'>&times;</span>
+                                            </button>
+                                        </div>"; 
+                            $pass = false;
+                        }
                     }
                 }
                 if($pass){
-                    if(updateUser($_POST['username'],$password,$_POST['email'],$path, $client['uid'])){
-                        if(retrieveUser($client['uid'])){
-                            echo "<script type='text/javascript'> window.location='dashboard.php'; </script>";
-                        }else{
-                            echo "error updating session";                            
+                    if($username != $client['username']){      
+                        if(!checkIfUniqueUsername($username, $client['uid'])){
+                            $error =    "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                            <strong>Username already existing!</strong> 
+                                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                <span aria-hidden='true'>&times;</span>
+                                            </button>
+                                        </div>";
+                            $pass = false;
                         }
-                    }else{
-                        echo "error updating database";
                     }
-                }else{
-                    echo $error;
+                }
+                if($pass){
+                    if(isset($_POST['chpassword']) && isset($_POST['cpassword']) && !empty($_POST['chpassword'])){
+                        if($_POST['chpassword'] !== $_POST['cpassword']){
+                            $error= "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                        <strong>Passwords do not match</strong> 
+                                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                            <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                    </div>"; 
+                            $pass = false;
+                        }else{
+                            $password = MD5($cpassword);
+                        }
+                    } 
+                }
+                if($pass){
+                    if(file_exists($_FILES['image']['tmp_name']) || is_uploaded_file($_FILES['image']['tmp_name'])){
+                        $temp_time = time();
+                        $file_name = $_FILES['image']['name'];
+                        $temp_name = $_FILES['image']['tmp_name'];
+                        $file_extension = explode(".", $file_name);
+                        $path = "img/profile_image/". $client['uid'] . $temp_time . MD5($file_name)."." .strtolower(end($file_extension));
+                        $upload = move_uploaded_file($temp_name, $path);
+                        if(!$upload){
+                            $pass = false;
+                            $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                        <strong>Error uploading file</strong> contact admin for help. 
+                                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                            <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                    </div>";  
+                        }
+                    }
+                }
+                if($pass){
+                    if(updateUser($username,$password,$email,$path,$client['uid'])){
+                        echo "<script type='text/javascript'> window.location='dashboard.php'; </script>";
+                    }else{
+                        $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                            <strong>Error with database</strong> contact the admin for help.
+                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                <span aria-hidden='true'>&times;</span>
+                            </button>
+                        </div>";
+                    }
                 }
             }else{
-                echo "wrong password";
+                $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                            <strong>Incorrect password</strong>
+                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                <span aria-hidden='true'>&times;</span>
+                            </button>
+                        </div>";
             }
             closeDB();
         }
@@ -102,7 +138,7 @@
             
             <label for="file" class="col-sm-2 col-form-label"><img src="<?php echo $client['upfp']; ?>" class="rounded-circle" alt="profile image" height="150px" width="120px"></label>
             <div class="col-sm-10">
-                <input type="file" name="image" class="form-control" id="file">
+                <input type="file" name="image" class="form-control-file" id="file">
             </div>
         </div>
         <div class="form-group row">
@@ -111,7 +147,7 @@
                 <input type="password" name="password" class="form-control" id="register-con-password" placeholder="Current Password" required>
             </div>
         </div>
-        
+        <?php echo $error; ?>
         <button type="submit" name="edit" class="btn btn-primary">Edit</button>
     </form>
     <a href="dashboard.php">Back to Dashboard</a>
