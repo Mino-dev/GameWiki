@@ -106,7 +106,7 @@
                 if($pass){
                     if(updateUser($username,$password,$email,$path,$client['uid'])){
                         $error="";
-                       // echo "<script type='text/javascript'> window.location='dashboard.php'; </script>";
+                        echo "<script type='text/javascript'> window.location='dashboard.php'; </script>";
                     }else{
                         $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
                             <strong>Error with database</strong> contact the admin for help.
