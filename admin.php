@@ -34,7 +34,6 @@
 			var elements = document.getElementsByClassName("adminEdit");
 			var getValues = function() {
 				var attribute = $(this).attr("value");
-				alert(attribute);
 				$.ajax({
 					url : 'data/admin-handle-session.php',
 					type : 'POST',

@@ -103,8 +103,8 @@
     }
     function checkIfUniqueUsername($username, $uid){
         $sql = "SELECT username FROM users
-                WHERE username = '$username'
-                AND  `uid` != '$uid'";
+                WHERE  username = '$username'
+                AND `uid` != $uid";
         global $connection; 
         $result = mysqli_query($connection, $sql);
         if(mysqli_num_rows($result) == 0){
@@ -160,31 +160,28 @@
         global $connection; 
         $result = mysqli_query($connection, $sql);
         if($result) {
-            return true;
+            
+            $sql = "SELECT * FROM users
+                WHERE `uid` = '$uid'";
+            $connection;
+            $result = mysqli_query($connection, $sql);
+            if(mysqli_num_rows($result) == 0){
+                return false;
+            }else{
+                $row = mysqli_fetch_array($result);
+                $client = array("uid" => $row['uid'],
+                            "username" => $row['username'],
+                            "uemail" => $row['uemail'],
+                            "utype" => $row['utype'],
+                            "upfp"  => $row['upfp']);
+                $_SESSION['client'] = $client;
+                return true;
+            }
         } else {
             return false;
         }
     }
-    function retrieveUser($uid){
-        $sql = "SELECT * FROM users
-                WHERE `uid` = '$uid'";
-        global $connection;
-        $result = mysqli_query($connection, $sql);
-        if(mysqli_num_rows($result) == 0){
-            
-            return false;
-        }else{
-            $row = mysqli_fetch_array($result);
-            $client = array("uid" => $row['uid'],
-                        "username" => $row['username'],
-                        "uemail" => $row['uemail'],
-                        "utype" => $row['utype'],
-                        "upfp"  => $row['upfp']);
-            $_SESSION['client'] = $client;
-            return true;
-        }
-    }
-    function checkLoginUser($username, $password){
+    function loginUser($username, $password){
         $sql = "SELECT * FROM users
         WHERE username = '$username'
         AND upassword = '$password'";
@@ -194,19 +191,14 @@
         if(mysqli_num_rows($login) == 0){
             return false;
         }else{
-            return true;
-        }
-    }
-
-    function loginUser(){
-        global $login;
-        $row = mysqli_fetch_array($login);
-        $client = array("uid" => $row['uid'],
+            $row = mysqli_fetch_array($login);
+            $client = array("uid" => $row['uid'],
                         "username" => $row['username'],
                         "uemail" => $row['uemail'],
                         "utype" => $row['utype'],
                         "upfp"  => $row['upfp']);
-        $_SESSION['client'] = $client;
-    }
-    
+            $_SESSION['client'] = $client;
+            return true;
+        }
+    }    
 ?>
