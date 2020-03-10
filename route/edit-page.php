@@ -7,7 +7,7 @@
 	}
 
     if(isset($_POST['edit'])){
-        
+        require('handlers/input-validation-handler.php');
         require_once('data/database.php'); 
         if(connectDB()){
             $password = MD5(strip_tags($_POST['password']));
@@ -34,16 +34,22 @@
                     }
                 }
                 if($pass){
-                    if($username != $client['username']){      
-                        if(!checkIfUniqueUsername($username, $client['uid'])){
-                            $error =    "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                            <strong>Username already existing!</strong> 
-                                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                                <span aria-hidden='true'>&times;</span>
-                                            </button>
-                                        </div>";
+                    if($username != $client['username']){ 
+                        if(checkInputUsername($username) === 0){
+                            
+                            if(!checkIfUniqueUsername($username, $client['uid'])){
+                                $error =    "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                                <strong>Username already existing!</strong> 
+                                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                    <span aria-hidden='true'>&times;</span>
+                                                </button>
+                                            </div>";
+                                $pass = false;
+                            }
+                        }else{
+                            $error = checkInputUsername($username);
                             $pass = false;
-                        }
+                        }     
                     }
                 }
                 if($pass){
@@ -57,7 +63,14 @@
                                     </div>"; 
                             $pass = false;
                         }else{
-                            $password = MD5($cpassword);
+                            
+                            if(checkInputPassword($cpassword)===0){
+                                $password = MD5($cpassword);
+                            }else{
+                                $error = checkInputPassword($cpassword);
+                                $pass=false;
+                            }
+                            
                         }
                     } 
                 }
@@ -65,18 +78,28 @@
                     if(file_exists($_FILES['image']['tmp_name']) || is_uploaded_file($_FILES['image']['tmp_name'])){
                         $temp_time = time();
                         $file_name = $_FILES['image']['name'];
-                        $temp_name = $_FILES['image']['tmp_name'];
-                        $file_extension = explode(".", $file_name);
-                        $path = "img/profile_image/". $client['uid'] . $temp_time . MD5($file_name)."." .strtolower(end($file_extension));
-                        $upload = move_uploaded_file($temp_name, $path);
-                        if(!$upload){
+                        $temp_array = explode(".", $file_name);
+                        $valid_extensions = array("jpg","jpeg","png","gif");
+                        $file_extension = strtolower(end($temp_array));
+                        if(in_array($file_extension,$valid_extensions) ) {
+                            $path = "img/profile_image/". $client['uid'].$temp_time.MD5($file_name).".".$file_extension;
+                            if(!move_uploaded_file($_FILES['image']['tmp_name'], $path)){
+                                $pass = false;
+                                $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                            <strong>Error uploading file</strong> contact admin for help. 
+                                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                <span aria-hidden='true'>&times;</span>
+                                            </button>
+                                        </div>";  
+                            }
+                        }else{
                             $pass = false;
                             $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                        <strong>Error uploading file</strong> contact admin for help. 
-                                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                            <span aria-hidden='true'>&times;</span>
-                                        </button>
-                                    </div>";  
+                                            <strong>Invalid file format</strong>
+                                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                <span aria-hidden='true'>&times;</span>
+                                            </button>
+                                        </div>";  
                         }
                     }
                 }

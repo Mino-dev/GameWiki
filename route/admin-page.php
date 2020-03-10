@@ -25,7 +25,7 @@
                     $content = json_decode(file_get_contents($acceptupdates['updatepath']),true);
                     $_SESSION['content'] = $content; 
                     $_SESSION['forupdate']=false;
-                    echo "<script type='text/javascript'> window.location='admin.php'; </script>";
+                    echo "<script type='text/javascript'> window.location='index.php'; </script>";
                 }
             }
         }else if(isset($_POST['reject_yes'])&& isset($updates) && isset($_SESSION['forupdate'])){

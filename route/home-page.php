@@ -30,7 +30,7 @@
 
 </header>
 <section class="container section-main">
-	<?php require('data/content-manager.php'); ?>
+	<?php require('handlers/content-handler.php'); ?>
 	<div class="row">
 		<div class="col-6">
 			<h1>Description</h1>
@@ -90,10 +90,30 @@
 		<div class="col-12" id="nwev">
 			<?php echo$_SESSION['content']['nwev']?>
 		</div>
-	</div>      
+	</div>
+	    
+	<form method="post" enctype="multipart/form-data">     
+		<div class="form-row">
+			<div class="col-12">
+				<h1>Featured Image</h1>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="col preview">
+				<image src="<?php echo$_SESSION['content']['fimg']?>">
+			</div>
+		<?php if(isset($_SESSION['log'])){?>
+			<div class="form-row">
+				<div class="col">
+					<input type="file" name="file" class="form-control" id="file">
+					<button id="e5" value="fimg"> 
+						Upload
+					</button>
+				</div>
+			</div>
+		<?php }?>	
+	</form>     
 	<?php	
-			require('route/content/feature-image.php');
-			
 		closeDB();
 		}
 	?>

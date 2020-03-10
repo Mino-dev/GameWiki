@@ -1,11 +1,11 @@
 <?php 
     
     if(isset($_SESSION['log'])){
-        if(isset($_POST['consave'])&&isset($_SESSION['content'])){
-            $_SESSION['changes'] = false;	
+        if(isset($_POST['consave'])&&isset($_SESSION['content'])){	
             if($_SESSION['client']['utype'] == 0){
                 $dir = "data/stat_content/content.json";
                 file_put_contents($dir,json_encode($_SESSION['content'],JSON_PRETTY_PRINT));  
+                $_SESSION['changes'] = false;
             }else{
                 $temp_time=time();
                 $dir = "data/dyn_content/content" . $temp_time . "copy.json";
@@ -13,6 +13,8 @@
                 $uid = $_SESSION['client']['uid'];  
                 if(!insertContent($dir, $uid)){
                     echo "fail to update";
+                }else{
+                    $_SESSION['changes'] = false;
                 }
             }   
         }          
@@ -20,7 +22,7 @@
     
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#saveChanges" <?php 
-        if(!$_SESSION['changes']){
+        if(!$_SESSION['changes'] && $_SESSION['client']['utype'] != 0){
             echo "disabled"; 
         }
     ?>>
