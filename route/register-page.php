@@ -1,31 +1,56 @@
 <?php
-    require_once('data/database.php'); 
-    if(connectDB()){
-        if(isset($_POST['register'])){
-            $email = $_POST['email'];
-            $username = $_POST['username'];
-            $password = MD5($_POST['password']);
-            $cpassword = MD5($_POST['cpassword']);
+    $error="";
+    require_once('data/database.php');
+    if(isset($_POST['register'])){
+        if(connectDB()){
+            $email = strip_tags($_POST['email']);
+            $username = strip_tags($_POST['username']);
+            $password = MD5(strip_tags($_POST['password']));
+            $cpassword = MD5(strip_tags($_POST['cpassword']));
             if(!isUsernameExisting($username)){
                 if(!isEmailExisting($email)){
                     if($cpassword==$password){
                         if(registerUser($username, $password, $email)){
+                            $error="";
                             echo "<script type='text/javascript'> window.location='login.php'; </script>";
                         }else{
-                            echo "registration oops";
+                            $error =    "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                            <strong>Error registering user details!</strong> contact the admin. 
+                                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                <span aria-hidden='true'>&times;</span>
+                                            </button>
+                                        </div>"; 
                         }
                     }else{
-                        echo "password doest not match oops";
+                        $error= "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                        <strong>Passwords do not match!</strong> 
+                                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                            <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                    </div>"; 
                     }
                 }else{
-                    echo "email oops";
+                    $error =    "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                            <strong>Email already existing!</strong> 
+                                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                <span aria-hidden='true'>&times;</span>
+                                            </button>
+                                        </div>"; 
+                            $pass = false;
                 }
             }else{
-                echo "username oops";
+                $error =    "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                            <strong>Username already existing!</strong> 
+                                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                <span aria-hidden='true'>&times;</span>
+                                            </button>
+                                        </div>";
             } 
+            closeDB();
         }
-        closeDB();
-    }
+        
+    } 
+    
     
 ?>
 
@@ -61,6 +86,7 @@
                 <input type="password" name="cpassword" class="form-control" id="register-con-password" placeholder="Confirm Password" required>
             </div>
         </div>
+        <?php echo $error; ?>
         <button type="submit" name="register" class="btn btn-primary">Sign Up</button>
     </form>
  
