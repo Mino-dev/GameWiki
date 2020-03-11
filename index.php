@@ -10,18 +10,18 @@
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-		<?php require("style/decache.php"); ?>
-		<link rel="stylesheet" href="style/style.css?v=<?php echo returnVersion();?>" type="text/css">
+		<link rel="stylesheet" href="style/style.css" type="text/css">
+		<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 		<title>Wiki</title>
 	</head>
 	<body>
-	
+
 		<div class="container-fluid main-content">
 			<?php
 				include ('route/home-page.php');
 			?>
-			
-		</div>		
+
+		</div>
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
