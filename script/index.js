@@ -6,8 +6,11 @@ window.onbeforeunload = function () {
 };
 
 document.execCommand('defaultParagraphSeparator', false, 'p');
-
+if($('#e5').length <0){
+    alert("no e5");
+}
 var upload = document.getElementById('e5');
+upload.addEventListener('click', uploadFile, false);
 var uploadFile = function(){
     var fd = new FormData();
     var files = $('#file')[0].files[0];
@@ -33,7 +36,7 @@ var uploadFile = function(){
 };
 
 
-upload.addEventListener('click', uploadFile, false);
+
 
 var elements = document.getElementsByClassName("userEdit");
 var convertoEditable = function() {
