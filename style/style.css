@@ -13,8 +13,8 @@ body{
 	background: #93bfd6;
 	min-height: 95vh;
 }
-.navbar-custom{
-	background: transparent;
+.navbar{
+	background: rgba(255,255,255,0.3);
 }
 .col-lg-9 {
  	background: #93bfd6;
@@ -25,8 +25,8 @@ body{
 #profilepic {
 	height: 255px;
 }
-.page-footer {
-  	background-color:#fff;
+.page-footer{
+  	background: rgba(255,255,255,0.7);
 }
 
 html,body,.main-content{
@@ -38,4 +38,13 @@ body{
 [contenteditable="true"]{
 	background: #fdfdfd;
 }
-
+.navbar-brand {
+  font-family: Consolas;
+  font-weight: bold;
+}
+.col-sm-10 {
+  text-align: center;
+}
+.nav-link {
+  color: #a72d88;
+}
