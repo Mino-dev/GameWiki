@@ -35,11 +35,12 @@
 		<div class="col-6">
 			<h1>Description</h1>
 		</div>
-		<div class="col-6 buttons">
-			<button class="userEdit" id="e1" data-foo="edit" value="desc" style="display:<?php 
-			echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;"> 
-				Edit
-			</button>
+		<div class="col-6">
+			<?php if(isset($_SESSION['log'])){?>
+				<button class="userEdit" id="e1" data-foo="edit" value="desc"> 
+					Edit
+				</button>
+			<?php }?>
 		</div>
 		<div class="col-12" id="desc">
 			<?php echo$_SESSION['content']['desc']?>
@@ -49,11 +50,12 @@
 		<div class="col-6">
 			<h1>Gameplay</h1>
 		</div>
-		<div class="col-6 buttons">
-			<button class="userEdit" id="e2" data-foo="edit" value="game" style="display:<?php 
-			echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;"> 
-				Edit
-			</button>
+		<div class="col-6">
+			<?php if(isset($_SESSION['log'])){?>
+				<button class="userEdit" id="e2" data-foo="edit" value="game"> 
+					Edit
+				</button>
+			<?php }?>
 		</div>
 		<div class="col-12" id="game">
 			<?php echo$_SESSION['content']['game']?>
@@ -63,13 +65,12 @@
 		<div class="col-6">
 			<h1>Trivia</h1>
 		</div>
-		<div class="col-6 buttons">
-			
-			<button class="userEdit" id="e3" data-foo="edit" value="triv" style="display:<?php 
-					echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;"> 
-				Edit
-			</button>
-		
+		<div class="col-6">
+			<?php if(isset($_SESSION['log'])){?>
+				<button class="userEdit" id="e3" data-foo="edit" value="triv"> 
+					Edit
+				</button>
+			<?php }?>
 		</div>
 		<div class="col-12" id="triv">
 			<?php echo$_SESSION['content']['triv']?>
@@ -79,12 +80,12 @@
 		<div class="col-6">
 			<h1>News and Events</h1>
 		</div>
-		<div class="col-6 buttons">
-			<button class="userEdit" id="e4" data-foo="edit" value="nwev" 
-			style="display:<?php 
-			echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;"> 
-				Edit
-			</button>	
+		<div class="col-6">
+			<?php if(isset($_SESSION['log'])){?>
+				<button class="userEdit" id="e4" data-foo="edit" value="nwev"> 
+					Edit
+				</button>
+			<?php }?>
 		</div>
 		<div class="col-12" id="nwev">
 			<?php echo$_SESSION['content']['nwev']?>
@@ -101,18 +102,16 @@
 			<div class="col preview">
 				<image src="<?php echo$_SESSION['content']['fimg']?>">
 			</div>
-
+		<?php if(isset($_SESSION['log'])){?>
 			<div class="form-row">
-				<div class="col buttons">
-					<input type="file" name="file" class="form-control" id="file" 
-							style="display:<?php 
-							echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
-					<button id="e5" value="fimg" style="display:<?php 
-									echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;"> 
+				<div class="col">
+					<input type="file" name="file" class="form-control" id="file">
+					<button id="e5" value="fimg"> 
 						Upload
 					</button>
 				</div>
 			</div>
+		<?php }?>	
 	</form>     
 	<?php	
 		closeDB();

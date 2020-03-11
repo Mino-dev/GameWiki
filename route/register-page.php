@@ -6,20 +6,20 @@
             if(empty($_POST['email']) || ctype_space($_POST['email'])||
                 empty($_POST['username']) || ctype_space($_POST['username'])||
                 empty($_POST['password']) || ctype_space($_POST['password'])||
-                empty($_POST['cpassword']) || ctype_space($_POST['cpassword'])){                   
+                empty($_POST['cpassword']) || ctype_space($_POST['cpassword'])){
                 $error =    "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                <strong>Fill up everything!</strong> contact the admin. 
+                                <strong>Fill up everything!</strong> contact the admin.
                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                     <span aria-hidden='true'>&times;</span>
                                 </button>
-                            </div>";    
+                            </div>";
 
             }else{
                 $email = strip_tags($_POST['email']);
                 $username = strip_tags($_POST['username']);
                 $password = MD5(strip_tags($_POST['password']));
                 $cpassword = MD5(strip_tags($_POST['cpassword']));
-                
+
                 if(!isUsernameExisting($username)){
                     if(!isEmailExisting($email)){
                         if($cpassword==$password){
@@ -31,11 +31,11 @@
                                         echo "<script type='text/javascript'> window.location='login.php'; </script>";
                                     }else{
                                         $error =    "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                                        <strong>Error registering user details!</strong> contact the admin. 
+                                                        <strong>Error registering user details!</strong> contact the admin.
                                                         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                                             <span aria-hidden='true'>&times;</span>
                                                         </button>
-                                                    </div>"; 
+                                                    </div>";
                                     }
                                 }else{
                                     $error = checkInputPassword(strip_tags($_POST['cpassword']));
@@ -43,47 +43,47 @@
                             }else{
                                 $error = checkInputUsername(strip_tags($_POST['username']));
                             }
-                            
+
                         }else{
                             $error= "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                            <strong>Passwords do not match!</strong> 
+                                            <strong>Passwords do not match!</strong>
                                             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                                 <span aria-hidden='true'>&times;</span>
                                             </button>
-                                        </div>"; 
+                                        </div>";
                         }
                     }else{
                         $error =    "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                                <strong>Email already existing!</strong> 
-                                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                                    <span aria-hidden='true'>&times;</span>
-                                                </button>
-                                            </div>"; 
-                                $pass = false;
-                    }
-                }else{
-                    $error =    "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                                <strong>Username already existing!</strong> 
+                                                <strong>Email already existing!</strong>
                                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                                     <span aria-hidden='true'>&times;</span>
                                                 </button>
                                             </div>";
-                } 
+                                $pass = false;
+                    }
+                }else{
+                    $error =    "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                                <strong>Username already existing!</strong>
+                                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                    <span aria-hidden='true'>&times;</span>
+                                                </button>
+                                            </div>";
+                }
             }
-            
-            
+
+
             closeDB();
-            
+
         }
-        
-    } 
-    
-    
+
+    }
+
+
 ?>
 
 <!--Navigation Bar -->
 <header class="r:header-section header-section">
-    <?php     
+    <?php
         include('template/navbar.php');
     ?>
 </header>
@@ -116,7 +116,7 @@
         <?php echo $error; ?>
         <button type="submit" name="register" class="btn btn-primary">Sign Up</button>
     </form>
- 
+
 	<a href="login.php">Back to Login Page</a>
 </section>
 <!--End of Register Section -->

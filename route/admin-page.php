@@ -1,8 +1,8 @@
 <?php
-    
+
     require_once('data/database.php');
     if(connectDB()){
-        
+
         if(isset($_SESSION['content'])){
             $updates = getPendingUpdates();
         }
@@ -12,7 +12,7 @@
                 if(isset($acceptupdates) && $acceptupdates !=null){
                     $dir = "data/stat_content/content.json";
                     $content = json_decode(file_get_contents($acceptupdates['updatepath']),true);
-                    file_put_contents($dir,json_encode($content,JSON_PRETTY_PRINT)); 
+                    file_put_contents($dir,json_encode($content,JSON_PRETTY_PRINT));
                     $_SESSION['content'] = $content;
                     setUpdateTag(0,$acceptupdates['updateid']);
                     echo "<script type='text/javascript'> window.location='admin.php'; </script>";
@@ -23,7 +23,7 @@
                 $acceptupdates = $updates[$_SESSION['admin_util']];
                 if(isset($acceptupdates) && $acceptupdates !=null){
                     $content = json_decode(file_get_contents($acceptupdates['updatepath']),true);
-                    $_SESSION['content'] = $content; 
+                    $_SESSION['content'] = $content;
                     $_SESSION['forupdate']=false;
                     echo "<script type='text/javascript'> window.location='index.php'; </script>";
                 }
@@ -39,9 +39,9 @@
                     setUpdateTag(0,$acceptupdates['updateid']);
                     echo "<script type='text/javascript'> window.location='admin.php'; </script>";
                 }
-               
+
             }
-            
+
         }else if(isset($_POST['revert_yes']) && isset($updates) && isset($_SESSION['forupdate'])){
             if($_SESSION['forupdate']){
                 $dir = "data/stat_content/content.json";
@@ -50,17 +50,17 @@
                 $_SESSION['forupdate']=false;
                 echo "<script type='text/javascript'> window.location='admin.php'; </script>";
             }
-            
-            
+
+
         }
-        
+
         closeDB();
-    }    
-    
+    }
+
 ?>
-<header class="header-section"> 
+<header class="header-section">
     <?php
-        include('template/navbar.php');   
+        include('template/navbar.php');
     ?>
 </header>
 <section class="section-main containter">
@@ -155,14 +155,14 @@
     <div id="accordion">
     <?php
         if(isset($updates) && $updates != null){
-           
+
             foreach($updates as $key=>$content_updates){
     ?>
                 <div class="card">
                     <div class="card-header" id="heading<?php echo $content_updates['updateid']?>">
                         <h5 class="mb-0">
                             <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<?php echo $content_updates['updateid']?>" aria-expanded="true" aria-controls="collapseOne">
-                                <?php 
+                                <?php
                                     echo "Changes from user: " . $content_updates['uid'] . " " . $content_updates['timestamp'];
                                     $updatable = json_decode(file_get_contents($content_updates['updatepath']),true);
                                 ?>
@@ -199,23 +199,23 @@
                                 <img src="<?php echo $updatable['fimg']?>" alt="featured image">
                             </div>
                         </div>
-                        <button class="adminEdit" id="buttonAccept" data-toggle="modal" data-target="#acceptChanges" value="<?php echo $key;?>"> 
+                        <button class="adminEdit" id="buttonAccept" data-toggle="modal" data-target="#acceptChanges" value="<?php echo $key;?>">
                             Accept
                         </button>
-                        <button class="adminEdit" id="buttonEdit" data-toggle="modal" data-target="#editChanges" value="<?php echo $key;?>"> 
+                        <button class="adminEdit" id="buttonEdit" data-toggle="modal" data-target="#editChanges" value="<?php echo $key;?>">
                             Edit
-                        </button> 
-                        <button class="adminEdit" id="buttonReject" data-toggle="modal" data-target="#rejectChanges" value="<?php echo $key;?>"> 
+                        </button>
+                        <button class="adminEdit" id="buttonReject" data-toggle="modal" data-target="#rejectChanges" value="<?php echo $key;?>">
                             Reject
-                        </button>                    
+                        </button>
                     </div>
-                </div> 
-                  
-    <?php   
+                </div>
+
+    <?php
             }?>
-            <button class="adminEdit" data-toggle="modal" data-target="#revert" value="-1"> 
+            <button class="adminEdit" data-toggle="modal" data-target="#revert" value="-1">
                 Revert to Original
-            </button>  
+            </button>
         <?php
         }else{
             echo "Nothing to display here. Move Along.";

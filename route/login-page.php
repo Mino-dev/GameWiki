@@ -1,7 +1,7 @@
-<?php   
+<?php
     $error="";
     if(isset($_POST['login'])){
-        require_once('data/database.php'); 
+        require_once('data/database.php');
         if(connectDB()){
             $username = strip_tags($_POST['username']);
             $password = MD5(strip_tags($_POST['password']));
@@ -19,8 +19,8 @@
             }
             closeDB();
         }
-        
-    }  
+
+    }
 ?>
 <!--Navigation Bar -->
 <header class="header-section">
@@ -31,27 +31,29 @@
 <!--End of Navigation Bar-->
 <!--Login Section -->
 <div class="col-6 align-center mx-auto">
-	<section class="section-main container">
+	<section class="section-main container text-center">
 		<form class="login-form" method="post">
 			<div class="form-group row">
-				<label for="login-username" class="col-sm-2 col-form-label">Username</label>
-				<div class="col-sm-10">
+        <div class="col-sm-12">
+           &nbsp
+        </div>
+				<div class="col-sm-12">
 					<input type="text" name="username" class="form-control" maxlength="30" id="login-username" placeholder="Username" value="<?php echo isset($_POST['username'])? $_POST['username']: '';?>" required>
                 </div>
 			</div>
 			<div class="form-group row">
-				<label for="login-password" class="col-sm-2 col-form-label">Password</label>
-				<div class="col-sm-10">
+
+				<div class="col-sm-12">
 					<input type="password" name="password" class="form-control" maxlength="20" id="login-password" placeholder="Password"  required>
             	</div>
-                
+
 
 			</div>
             <?php echo $error; ?>
 			<button type="submit" name="login" class="btn btn-primary">Sign In</button>
-            
+
 		</form>
-        
+
 		<h3>Don't have an account yet?</h3>
 		<a href="register.php">Register Now!</a>
 	</section>
