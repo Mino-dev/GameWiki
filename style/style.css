@@ -26,7 +26,7 @@ body{
 	height: 255px;
 }
 .page-footer {
-  	background-color: #03396c;
+  	background-color:#fff;
 }
 
 html,body,.main-content{
@@ -38,3 +38,4 @@ body{
 [contenteditable="true"]{
 	background: #fdfdfd;
 }
+

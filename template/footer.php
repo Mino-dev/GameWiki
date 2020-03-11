@@ -1,4 +1,4 @@
-<div class = "page-footer font-small blue pt-4 row ">
+<div class = "page-footer font-small pt-4 row ">
     <!-- Footer Links -->
     <div class="container-fluid text-center text-md-left">
 
