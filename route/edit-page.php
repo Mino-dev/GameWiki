@@ -1,128 +1,146 @@
 <?php
     $error = "";
+    require('handlers/input-validation-handler.php');
+    require_once('data/database.php'); 
     if(isset($_SESSION['log'])&&$_SESSION['log']){
         $client = $_SESSION['client'];
         $email = $client['uemail'];
         $username = $client['username'];
+        $path = $client['upfp'];
 	}
-
     if(isset($_POST['edit'])){
-        require('handlers/input-validation-handler.php');
-        require_once('data/database.php'); 
         if(connectDB()){
-            $password = MD5(strip_tags($_POST['password']));
-            if(checkPassword($password, $client['uid'])){
-                $pass = true;
-                $username = strip_tags($_POST['username']);
-                $email = strip_tags($_POST['email']);
-                $chpassword = strip_tags($_POST['chpassword']);
-                $cpassword= strip_tags($_POST['cpassword']); 
-                
-
-                $path = $client['upfp'];
-                if($pass){
-                    if($email != $client['uemail']){
-                        if(!checkIfUniqueEmail($_POST['email'],$client['uid'])){
-                            $error =    "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                            <strong>Email already existing!</strong> 
-                                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                                <span aria-hidden='true'>&times;</span>
-                                            </button>
-                                        </div>"; 
-                            $pass = false;
+            if(empty($_POST['password']) || ctype_space($_POST['password'])){
+                $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                            <strong>Fill out the password field.</strong> 
+                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                <span aria-hidden='true'>&times;</span>
+                            </button>
+                        </div>";
+            }else{
+                $password = htmlspecialchars(strip_tags($_POST['password']));
+                if(checkInputPassword($password) !==0 ){
+                    $error = checkInputPassword($password);
+                }else{
+                    $pass = true;
+                    if($pass){
+                        if(checkPassword($password, $client['uid'])){
+                            $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                        <strong>Incorrect password</strong>
+                                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                            <span aria-hidden='true'>&times;</span>
+                                        </button>
+                                    </div>";
                         }
                     }
-                }
-                if($pass){
-                    if($username != $client['username']){ 
-                        if(checkInputUsername($username) === 0){
-                            
-                            if(!checkIfUniqueUsername($username, $client['uid'])){
-                                $error =    "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                                <strong>Username already existing!</strong> 
+                    if($pass){
+                        if(isset($_POST['email'])){
+                            if($email != $client['uemail']){
+                                $email = htmlspecialchars(strip_tags($_POST['email']));
+                                if(!simpleEmailCheck($email)){
+                                    $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                                <strong>Invalid email format!</strong>
                                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                                     <span aria-hidden='true'>&times;</span>
                                                 </button>
                                             </div>";
-                                $pass = false;
+                                    $pass=false;
+                                }else{
+                                    if(!checkIfUniqueEmail($email,$client['uid'])){
+                                        $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                                    <strong>Email already exists!</strong> 
+                                                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                        <span aria-hidden='true'>&times;</span>
+                                                    </button>
+                                                </div>"; 
+                                        $pass=false;
+                                    }
+                                }
                             }
-                        }else{
-                            $error = checkInputUsername($username);
-                            $pass = false;
-                        }     
-                    }
-                }
-                if($pass){
-                    if(isset($_POST['chpassword']) && isset($_POST['cpassword']) && !empty($_POST['chpassword'])){
-                        if($_POST['chpassword'] !== $_POST['cpassword']){
-                            $error= "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                        <strong>Passwords do not match</strong> 
-                                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                            <span aria-hidden='true'>&times;</span>
-                                        </button>
-                                    </div>"; 
-                            $pass = false;
-                        }else{
-                            
-                            if(checkInputPassword($cpassword)===0){
-                                $password = MD5($cpassword);
-                            }else{
-                                $error = checkInputPassword($cpassword);
-                                $pass=false;
-                            }
-                            
                         }
-                    } 
-                }
-                if($pass){
-                    if(file_exists($_FILES['image']['tmp_name']) || is_uploaded_file($_FILES['image']['tmp_name'])){
-                        $temp_time = time();
-                        $file_name = $_FILES['image']['name'];
-                        $temp_array = explode(".", $file_name);
-                        $valid_extensions = array("jpg","jpeg","png","gif");
-                        $file_extension = strtolower(end($temp_array));
-                        if(in_array($file_extension,$valid_extensions) ) {
-                            $path = "img/profile_image/". $client['uid'].$temp_time.MD5($file_name).".".$file_extension;
-                            if(!move_uploaded_file($_FILES['image']['tmp_name'], $path)){
+                    }
+                    if($pass){
+                        if(isset($_POST['username'])){
+                            if($username != $client['username']){ 
+                                $username = htmlspecialchars(strip_tags($_POST['username']));
+                                if(checkInputUsername($username) !==0){
+                                    $error = checkInputUsername($username);
+                                    $pass=false;
+                                }else{
+                                    if(!checkIfUniqueUsername($username, $client['uid'])){
+                                        $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                                    <strong>Username already exists!</strong> 
+                                                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                        <span aria-hidden='true'>&times;</span>
+                                                    </button>
+                                                </div>";
+                                        $pass=false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if($pass){
+                        if(isset($_POST['password']) && isset($_POST['cpassword'])  && !empty($_POST['chpassword']) && !empty($_POST['cpassword'])){
+                            $cpassword = htmlspecialchars(strip_tags($_POST['cpassword']));
+                            $chpassword = htmlspecialchars(strip_tags($_POST['chpassword']));
+                            if($chpassword !== $cpassword){
+                                $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                            <strong>Passwords do not match!</strong>.
+                                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                <span aria-hidden='true'>&times;</span>
+                                            </button>
+                                        </div>";
+                            }else if(checkInputPassword($cpassword) !==0){
+                                $error = checkInputPassword($cpassword);
+                                $pass = false;
+                            }else if(checkInputPassword($chpassword) !==0){
+                                $error = checkInputPassword($cpassword);
+                                $pass = false;
+                            }else{
+                                $password = $cpassword;
+                            }
+                        }
+                    }
+                    if($pass){
+                        if(file_exists($_FILES['image']['tmp_name']) || is_uploaded_file($_FILES['image']['tmp_name'])){
+                            $temp_time = time();
+                            $file_name = $_FILES['image']['name'];
+                            $temp_array = explode(".", $file_name);
+                            $file_extension = strtolower(end($temp_array));
+                            if(checkValidFileExtension($file_extension)) {
+                                $path = "img/profile_image/". $client['uid'].$temp_time.MD5($file_name).".".$file_extension;
+                                if(!move_uploaded_file($_FILES['image']['tmp_name'], $path)){
+                                    $pass = false;
+                                    $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                                                <strong>Error uploading file</strong> contact admin for help. 
+                                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                    <span aria-hidden='true'>&times;</span>
+                                                </button>
+                                            </div>";  
+                                }
+                            }else{
                                 $pass = false;
                                 $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                            <strong>Error uploading file</strong> contact admin for help. 
-                                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                                <span aria-hidden='true'>&times;</span>
-                                            </button>
-                                        </div>";  
+                                                <strong>Invalid file format</strong>
+                                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                                    <span aria-hidden='true'>&times;</span>
+                                                </button>
+                                            </div>";  
                             }
-                        }else{
-                            $pass = false;
-                            $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                            <strong>Invalid file format</strong>
-                                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                                <span aria-hidden='true'>&times;</span>
-                                            </button>
-                                        </div>";  
                         }
                     }
-                }
-                if($pass){
-                    if(updateUser($username,$password,$email,$path,$client['uid'])){
-                        $error="";
-                        echo "<script type='text/javascript'> window.location='dashboard.php'; </script>";
-                    }else{
-                        $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                            <strong>Error with database</strong> contact the admin for help.
-                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                <span aria-hidden='true'>&times;</span>
-                            </button>
-                        </div>";
+                    if($pass){
+                        $password = MD5($password);                    
+                        $check = updateUser($username,$password,$email,$path,$client['uid']);
+                        if(is_bool($check) && $check){
+                            $error="";
+                        }else{
+                            $error=$check;
+                        }
                     }
-                }
-            }else{
-                $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                            <strong>Incorrect password</strong>
-                            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                                <span aria-hidden='true'>&times;</span>
-                            </button>
-                        </div>";
+                   
+                }        
             }
             closeDB();
         }
@@ -174,7 +192,7 @@
         <?php echo $error; ?>
         <button type="submit" name="edit" class="btn btn-primary">Edit</button>
     </form>
-    <a href="dashboard.php">Back to Dashboard</a>
+    <a href="index.php">Back to Home Page</a>
 </section>
 <footer class="footer-section">
     <?php include('template/footer.php'); ?>

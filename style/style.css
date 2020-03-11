@@ -14,7 +14,7 @@ body{
 	min-height: 95vh;
 }
 .navbar{
-	background: rgba(255,255,255,0.3);
+	background: rgba(255,255,255,1.0);
 }
 .col-lg-9 {
  	background: #93bfd6;
@@ -47,4 +47,15 @@ body{
 }
 .nav-link {
   color: #a72d88;
+}
+
+.content-wrapper{
+	padding: 15px 15px 30px 15px;
+}
+.homepagecontent{
+	padding: 30px 20px 60px 20px;
+	margin-bottom: 30px;  
+}
+#saveButton{
+	padding: 5px 0px;
 }

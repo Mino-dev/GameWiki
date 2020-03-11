@@ -3,13 +3,12 @@
 		$client = $_SESSION['client'];
 		$usn = "<a class='dropdown-item'>$client[username]</a>";
 		$type = $client['utype'];
-		$dashboard= "<a class='dropdown-item' href='dashboard.php'>Dashboard</a>";
+		$ed= "<a class='dropdown-item' href='edit.php'>Edit your profile</a>";
 		$src = $client['upfp'];
 		$control = "<a class='dropdown-item' href='logout.php'>Log Out</a>";
-
 	}else{
 		$type = 1;
-		$dashboard = "";
+		$ed = "";
 		$usn = "";
 		$src = "img/default.png";
 		$control = "<a class='dropdown-item' href='login.php'>Log In</a>";
@@ -49,9 +48,11 @@
 						</a>
 						<div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">
 							<?php echo $usn;
-								echo $dashboard;?>
+								echo $ed;?>
 							<div class="dropdown-divider"></div>
+							<a class='dropdown-item' href='register.php'>Register Now!</a>
 							<?php echo $control; ?>
+							
 						</div>
 					</li>
 				</ul>

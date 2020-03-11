@@ -3,8 +3,8 @@
     if(isset($_POST['login'])){
         require_once('data/database.php');
         if(connectDB()){
-            $username = strip_tags($_POST['username']);
-            $password = MD5(strip_tags($_POST['password']));
+            $username = htmlspecialchars(strip_tags($_POST['username']));
+            $password = MD5(htmlspecialchars(strip_tags($_POST['password'])));
             if(loginUser($username,$password)){
                 $_SESSION['log'] = true;
                 $error="";
@@ -30,34 +30,35 @@
 </header>
 <!--End of Navigation Bar-->
 <!--Login Section -->
-<div class="col-6 align-center mx-auto">
-	<section class="section-main container text-center">
-		<form class="login-form" method="post">
-			<div class="form-group row">
-        <div class="col-sm-12">
-           &nbsp
+<section class="container text-center" style="min-height: 95vh;">
+    <div class="col-6 mx-auto mt-5">
+        <div class="card">
+            <div class="card-body">
+                <form class="login-form" method="post">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                        &nbsp
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="text" name="username" class="form-control" maxlength="30" id="login-username" placeholder="Username" value="<?php echo isset($_POST['username'])? $_POST['username']: '';?>" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <input type="password" name="password" class="form-control" maxlength="20" id="login-password" placeholder="Password"  required>
+                        </div>
+                    </div>
+                    <?php echo $error; ?>
+                    <button type="submit" name="login" class="btn btn-light">Sign In</button>  
+                </form>
+            </div>
+            <div class="card-footer">
+                <h3>Don't have an account yet?</h3>
+                <a href="register.php">Register Now!</a>
+            </div>
         </div>
-				<div class="col-sm-12">
-					<input type="text" name="username" class="form-control" maxlength="30" id="login-username" placeholder="Username" value="<?php echo isset($_POST['username'])? $_POST['username']: '';?>" required>
-                </div>
-			</div>
-			<div class="form-group row">
-
-				<div class="col-sm-12">
-					<input type="password" name="password" class="form-control" maxlength="20" id="login-password" placeholder="Password"  required>
-            	</div>
-
-
-			</div>
-            <?php echo $error; ?>
-			<button type="submit" name="login" class="btn btn-primary">Sign In</button>
-
-		</form>
-
-		<h3>Don't have an account yet?</h3>
-		<a href="register.php">Register Now!</a>
-	</section>
-</div>
+    </div>
+</section>
 <!--End of Login Section -->
 <!--Footer Section-->
 <footer class="footer-section">
