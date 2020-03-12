@@ -21,7 +21,6 @@
                 $password = htmlspecialchars(strip_tags($_POST['password']));
                 $check = checkInputPassword($password); 
                 if($check !==0 ){
-                    echo "wrong password format";
                     $error = $check;
                 }else{
                     $pass = true;
@@ -34,7 +33,6 @@
                                         </button>
                                     </div>";
                             $pass = false;
-                            echo "wrong password";
                         }
                     }
                     if($pass){
@@ -49,7 +47,6 @@
                                                 </button>
                                             </div>";
                                     $pass=false;
-                                    echo "invalid email format";
                                 }else{
                                     if(!checkIfUniqueEmail($email,$client['uid'])){
                                         $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
@@ -59,7 +56,6 @@
                                                     </button>
                                                 </div>"; 
                                         $pass=false;
-                                        echo "Email already exists";
                                     }
                                 }
                             }
@@ -98,6 +94,7 @@
                                                 <span aria-hidden='true'>&times;</span>
                                             </button>
                                         </div>";
+                                $pass = false;
                             }else if(checkInputPassword($cpassword) !==0){
                                 $error = checkInputPassword($cpassword, "Changing Password: ");
                                 $pass = false;
@@ -140,7 +137,9 @@
                     if($pass){    
                         $check = updateUser($username,MD5($password),$email,$path,$client['uid']);
                         if(is_bool($check) && $check){
-                            $error="";
+                            $error="<div class='alert alert-success' role='alert'>
+                                        Successfully Updated Profile!
+                                    </div>";
                         }else{
                             $error=$check;
                         }

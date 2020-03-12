@@ -4,8 +4,8 @@
         require_once('data/database.php');
         if(connectDB()){
             $username = htmlspecialchars(strip_tags($_POST['username']));
-            $password = MD5(htmlspecialchars(strip_tags($_POST['password'])));
-            if(loginUser($username,$password)){
+            $password = htmlspecialchars(strip_tags($_POST['password']));
+            if(loginUser($username,MD5($password))){
                 $_SESSION['log'] = true;
                 $error="";
                 echo "<script type='text/javascript'> window.location='index.php'; </script>";

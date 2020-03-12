@@ -56,6 +56,9 @@ body{
 	padding: 30px 20px 60px 20px;
 	margin-bottom: 30px;  
 }
+.admin-updates{
+	padding: 15px 15px;
+}
 #saveButton{
 	padding: 5px 0px;
 }

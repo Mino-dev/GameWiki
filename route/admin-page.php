@@ -152,13 +152,16 @@
             </div>
         </div>
     </div>
-    <div id="accordion">
+    <div id="accordion admin-updates">
+    <button class="adminEdit" data-toggle="modal" data-target="#revert" value="-1">
+        Revert to Original
+    </button>
     <?php
         if(isset($updates) && $updates != null){
 
             foreach($updates as $key=>$content_updates){
     ?>
-                <div class="card">
+                <div class="card" style="margin: 10px 5px;">
                     <div class="card-header" id="heading<?php echo $content_updates['updateid']?>">
                         <h5 class="mb-0">
                             <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<?php echo $content_updates['updateid']?>" aria-expanded="true" aria-controls="collapseOne">
@@ -210,12 +213,7 @@
                         </button>
                     </div>
                 </div>
-
-    <?php
-            }?>
-            <button class="adminEdit" data-toggle="modal" data-target="#revert" value="-1">
-                Revert to Original
-            </button>
+            <?php } ?>
         <?php
         }else{?>
             <div class="jumbotron jumbotron-fluid" style="margin: 30px;">
