@@ -139,7 +139,7 @@
         }
     }
     function registerUser($username, $password, $email, $type = 1, $pfp='img/default.png'){
-
+        
         $sql = "INSERT INTO users(username, upassword, uemail, utype, upfp)
                 VALUES('$username', '$password', '$email', '$type', '$pfp')";
         global $connection;
@@ -147,7 +147,12 @@
         if ($result) {
             return true;
         } else {
-            return false;
+            return "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                        <strong>Invalid inputs</strong>.
+                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span>
+                        </button>
+                    </div>";
         }
     }
     function updateUser($username, $password, $email, $path, $uid){
@@ -166,7 +171,12 @@
             $connection;
             $result = mysqli_query($connection, $sql);
             if(mysqli_num_rows($result) == 0){
-                return false;
+                return "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                        <strong>Session did not update</strong>. Contact admin for support.
+                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span>
+                        </button>
+                    </div>";
             }else{
                 $row = mysqli_fetch_array($result);
                 $client = array("uid" => $row['uid'],
@@ -178,7 +188,12 @@
                 return true;
             }
         } else {
-            return false;
+            return "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                        <strong>Invalid inputs</strong>.
+                        <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span>
+                        </button>
+                    </div>";
         }
     }
     function loginUser($username, $password){

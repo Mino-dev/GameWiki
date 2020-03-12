@@ -21,14 +21,13 @@
 ?>
     
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#saveChanges" <?php 
+    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#saveChanges" <?php 
         if(!$_SESSION['changes'] && $_SESSION['client']['utype'] != 0){
             echo "disabled"; 
         }
     ?>>
         Save Changes
     </button>
-
     <!-- Modal -->
     <div class="modal fade" id="saveChanges" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

@@ -13,8 +13,8 @@ body{
 	background: #93bfd6;
 	min-height: 95vh;
 }
-.navbar-custom{
-	background: transparent;
+.navbar{
+	background: rgba(255,255,255,1.0);
 }
 .col-lg-9 {
  	background: #93bfd6;
@@ -25,8 +25,8 @@ body{
 #profilepic {
 	height: 255px;
 }
-.page-footer {
-  	background-color:#fff;
+.page-footer{
+  	background: rgba(255,255,255,0.7);
 }
 
 html,body,.main-content{
@@ -38,4 +38,27 @@ body{
 [contenteditable="true"]{
 	background: #fdfdfd;
 }
+.navbar-brand {
+  font-family: Consolas;
+  font-weight: bold;
+}
+.col-sm-10 {
+  text-align: center;
+}
+.nav-link {
+  color: #a72d88;
+}
 
+.content-wrapper{
+	padding: 15px 15px 30px 15px;
+}
+.homepagecontent{
+	padding: 30px 20px 60px 20px;
+	margin-bottom: 30px;  
+}
+.admin-updates{
+	padding: 15px 15px;
+}
+#saveButton{
+	padding: 5px 0px;
+}
