@@ -53,7 +53,7 @@
                 </form>
             </div>
             <div class="card-footer">
-                <h3>Don't have an account yet?</h3>
+                <p class="card-text">Don't have an account yet?</p>
                 <a href="register.php">Register Now!</a>
             </div>
         </div>

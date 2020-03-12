@@ -2,6 +2,8 @@
     $error="";
     require_once('data/database.php');
     require('handlers/input-validation-handler.php');
+    $email = "";
+    $username = "";
     if(isset($_POST['register'])){
         if(connectDB()){
             if(empty($_POST['email']) || ctype_space($_POST['email'])||
@@ -86,11 +88,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="register-email">Email</label>
-                            <input type="email" name="email" class="form-control" id="register-email" placeholder="Email"  value="<?php echo isset($_POST['email'])? $_POST['email']: '';?>" required>
+                            <input type="email" name="email" class="form-control" id="register-email" placeholder="Email"  value="<?php echo addslashes($email);?>" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="register-username">Username</label>
-                            <input type="text" name="username" class="form-control" id="register-username" placeholder="Username"  value="<?php echo isset($_POST['username'])? $_POST['username']: '';?>" required>
+                            <input type="text" name="username" class="form-control" id="register-username" placeholder="Username"  value="<?php echo addslashes($username);?>" required>
                         </div>
                     </div>
                     <div class="form-group row">

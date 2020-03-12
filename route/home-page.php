@@ -113,9 +113,8 @@
 				</div>
 				<div class="form-row">
 					<div class="col-md-4">
-						<div class="btn btn-light">
-							<input type="file" name="file" id="file"
-							style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
+						<div class="btn btn-light" style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
+							<input type="file" name="file" id="file">
 						</div>
 					</div>
 					<div class="col-md-8">

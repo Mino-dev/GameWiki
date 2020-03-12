@@ -3,7 +3,6 @@
         return filter_var($test, FILTER_VALIDATE_EMAIL);
     }
     function checkInputUsername($test){
-        echo "$test";
         if(strlen($test) < 4||preg_match('/\s/',$test)){
             return "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
                         <strong>Username must be at least 4 characters long and must not contain any white space!</strong>. 
@@ -26,11 +25,11 @@
         $valid_extensions = array("jpg","jpeg","png","gif");
         return in_array($extension,$valid_extensions);
     }
-    function checkInputPassword($test){
+    function checkInputPassword($test, $string = ""){
         
         if(strlen($test)<8||preg_match('/\s/',$test)){
             return "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                        <strong>Password must be at least 8 characters long with no white spaces</strong>. 
+                        <strong>".$string."Password must be at least 8 characters long with no white spaces</strong>. 
                         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                             <span aria-hidden='true'>&times;</span>
                         </button>
@@ -41,7 +40,7 @@
                  !preg_match("#[\W]+#",$test)){
 
             return "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                        <strong>Password must have at least one digit, uppercase character, lowercase character and special character!</strong>. 
+                        <strong>".$string."Password must have at least one digit, uppercase character, lowercase character and special character!</strong>. 
                         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                             <span aria-hidden='true'>&times;</span>
                         </button>

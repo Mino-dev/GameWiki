@@ -63,7 +63,7 @@
         include('template/navbar.php');
     ?>
 </header>
-<section class="section-main containter">
+<section class="containter" style="min-height: 95vh; margin: 30px 0px;">
     <!-- Modal -->
     <div class="modal fade" id="acceptChanges" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -217,10 +217,16 @@
                 Revert to Original
             </button>
         <?php
-        }else{
-            echo "Nothing to display here. Move Along.";
+        }else{?>
+            <div class="jumbotron jumbotron-fluid" style="margin: 30px;">
+                <div class="container">
+                    <h1 class="display-4">Nothing to Display Here</h1>
+                    <p class="lead">Move Along :).</p>
+                </div>
+            </div>
+        <?php      
         }
-    ?>
+        ?>
     </div>
 </section>
 <footer class="footer-section">

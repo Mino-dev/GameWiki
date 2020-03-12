@@ -1,7 +1,7 @@
 <?php
 	if(isset($_SESSION['log'])&& $_SESSION['log']){
 		$client = $_SESSION['client'];
-		$usn = "<a class='dropdown-item'>$client[username]</a>";
+		$usn = "<a class='dropdown-item'>".addslashes($client['username'])."</a>";
 		$type = $client['utype'];
 		$ed= "<a class='dropdown-item' href='edit.php'>Edit your profile</a>";
 		$src = $client['upfp'];

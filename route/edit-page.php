@@ -19,24 +19,28 @@
                         </div>";
             }else{
                 $password = htmlspecialchars(strip_tags($_POST['password']));
-                if(checkInputPassword($password) !==0 ){
-                    $error = checkInputPassword($password);
+                $check = checkInputPassword($password); 
+                if($check !==0 ){
+                    echo "wrong password format";
+                    $error = $check;
                 }else{
                     $pass = true;
                     if($pass){
-                        if(checkPassword($password, $client['uid'])){
+                        if(!checkPassword(MD5($password), $client['uid'])){
                             $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
                                         <strong>Incorrect password</strong>
                                         <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                             <span aria-hidden='true'>&times;</span>
                                         </button>
                                     </div>";
+                            $pass = false;
+                            echo "wrong password";
                         }
                     }
                     if($pass){
                         if(isset($_POST['email'])){
+                            $email = htmlspecialchars(strip_tags($_POST['email']));
                             if($email != $client['uemail']){
-                                $email = htmlspecialchars(strip_tags($_POST['email']));
                                 if(!simpleEmailCheck($email)){
                                     $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
                                                 <strong>Invalid email format!</strong>
@@ -45,6 +49,7 @@
                                                 </button>
                                             </div>";
                                     $pass=false;
+                                    echo "invalid email format";
                                 }else{
                                     if(!checkIfUniqueEmail($email,$client['uid'])){
                                         $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
@@ -54,6 +59,7 @@
                                                     </button>
                                                 </div>"; 
                                         $pass=false;
+                                        echo "Email already exists";
                                     }
                                 }
                             }
@@ -61,10 +67,11 @@
                     }
                     if($pass){
                         if(isset($_POST['username'])){
+                            $username = htmlspecialchars(strip_tags($_POST['username']));
                             if($username != $client['username']){ 
-                                $username = htmlspecialchars(strip_tags($_POST['username']));
-                                if(checkInputUsername($username) !==0){
-                                    $error = checkInputUsername($username);
+                                $check = checkInputUsername($username);
+                                if($check !==0){
+                                    $error = $check;
                                     $pass=false;
                                 }else{
                                     if(!checkIfUniqueUsername($username, $client['uid'])){
@@ -92,10 +99,10 @@
                                             </button>
                                         </div>";
                             }else if(checkInputPassword($cpassword) !==0){
-                                $error = checkInputPassword($cpassword);
+                                $error = checkInputPassword($cpassword, "Changing Password: ");
                                 $pass = false;
                             }else if(checkInputPassword($chpassword) !==0){
-                                $error = checkInputPassword($cpassword);
+                                $error = checkInputPassword($chpassword, "Changing Password: ");
                                 $pass = false;
                             }else{
                                 $password = $cpassword;
@@ -130,9 +137,8 @@
                             }
                         }
                     }
-                    if($pass){
-                        $password = MD5($password);                    
-                        $check = updateUser($username,$password,$email,$path,$client['uid']);
+                    if($pass){    
+                        $check = updateUser($username,MD5($password),$email,$path,$client['uid']);
                         if(is_bool($check) && $check){
                             $error="";
                         }else{
@@ -152,47 +158,55 @@
         include('template/navbar.php'); 
     ?>
 </header>
-<section class="section-main container">
-    <form class="login-form" method="post" enctype="multipart/form-data">
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="register-email">Email</label>
-                <input type="email" name="email" class="form-control" id="register-email" placeholder="Email"  value="<?php echo $email?>" required>
+<section class="container text-center" style="min-height: 95vh; margin-bottom: 30px;">
+    <div class="col-9 mx-auto mt-5">
+        <div class="card">
+            <div class="card-body">
+                <form class="login-form" method="post" enctype="multipart/form-data">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="register-email">Email</label>
+                            <input type="email" name="email" class="form-control" id="register-email" placeholder="Email"  value="<?php echo addslashes($email); ?>" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="register-username">Username</label>
+                            <input type="text" name="username" class="form-control" id="register-username" placeholder="Username"  value="<?php echo addslashes($username); ?>" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="register-password" class="col-sm-2 col-form-label">Change Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" name="chpassword" class="form-control" id="register-new-password" placeholder="New Password">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="register-con-password" class="col-sm-2 col-form-label">Confirm Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" name="cpassword" class="form-control" id="register-connew-password" placeholder="Confirm New Password">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        
+                        <label for="file" class="col-sm-2 col-form-label"><img src="<?php echo addslashes($client['upfp']); ?>" class="rounded-circle" alt="profile image" style="max-width: 120px; height: auto;"></label>
+                        <div class="col-sm-10">
+                            <input type="file" name="image" class="form-control-file" id="file">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="register-con-password" class="col-sm-2 col-form-label">Confirm Changes</label>
+                        <div class="col-sm-10">
+                            <input type="password" name="password" class="form-control" id="register-con-password" placeholder="Current Password" required>
+                        </div>
+                    </div>
+                    <?php echo $error; ?>
+                    <button type="submit" name="edit" class="btn btn-light">Edit</button>
+                </form>
             </div>
-            <div class="form-group col-md-6">
-                <label for="register-username">Username</label>
-                <input type="text" name="username" class="form-control" id="register-username" placeholder="Username"  value="<?php echo $username?>" required>
+            <div class="card-footer">
+                <a href="index.php">Back to Home Page</a>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="register-password" class="col-sm-2 col-form-label">Change Password</label>
-            <div class="col-sm-10">
-                <input type="password" name="chpassword" class="form-control" id="register-new-password" placeholder="New Password">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="register-con-password" class="col-sm-2 col-form-label">Confirm Password</label>
-            <div class="col-sm-10">
-                <input type="password" name="cpassword" class="form-control" id="register-connew-password" placeholder="Confirm New Password">
-            </div>
-        </div>
-        <div class="form-group row">
-            
-            <label for="file" class="col-sm-2 col-form-label"><img src="<?php echo $client['upfp']; ?>" class="rounded-circle" alt="profile image" height="150px" width="120px"></label>
-            <div class="col-sm-10">
-                <input type="file" name="image" class="form-control-file" id="file">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="register-con-password" class="col-sm-2 col-form-label">Confirm Changes</label>
-            <div class="col-sm-10">
-                <input type="password" name="password" class="form-control" id="register-con-password" placeholder="Current Password" required>
-            </div>
-        </div>
-        <?php echo $error; ?>
-        <button type="submit" name="edit" class="btn btn-primary">Edit</button>
-    </form>
-    <a href="index.php">Back to Home Page</a>
+    </div>
 </section>
 <footer class="footer-section">
     <?php include('template/footer.php'); ?>
