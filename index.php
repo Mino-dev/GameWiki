@@ -7,6 +7,7 @@
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="script" href="script/index.js"/>
 		<link rel="icon" type="image/png" href="img/icon/favicon-32x32.png" sizes="32x32">
 		<link rel="icon" type="image/png" href="img/icon/favicon-16x16.png" sizes="16x16">	
 		<link rel="manifest" href="img/icon/site.webmanifest">
@@ -32,6 +33,71 @@
     	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
-		<script src="script/index.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			window.onbeforeunload = function () {
+			var check = document.querySelector('[data-foo="editing"]');
+				if(check!=null){
+					return "Do you really want to close?";
+				}
+			};
+			document.execCommand('defaultParagraphSeparator', false, 'p');
+			var upload = document.getElementById('e5');
+			var uploadFile = function(){
+				var fd = new FormData();
+				var files = $('#file')[0].files[0];
+				fd.append('file',files);
+				$.ajax({
+					url : 'handlers/user-image-handler.php',
+					type : 'POST',
+					data: fd,
+					contentType: false,
+					processData: false,
+					success: function(data){
+						if(data == 1){
+							window.location='index.php';
+						}else{
+							alert("Error uploading the image");
+						}           
+					},
+					error : function(XMLHttpRequest, textStatus, errorThrown){
+						alert ("Error Occured");
+					}
+				});
+				return false;
+			};
+			upload.addEventListener('click', uploadFile, false);
+			var elements = document.getElementsByClassName("userEdit");
+			var convertoEditable = function() {
+				var value = $(this).attr("value");
+				var id = $(this).attr("id");
+				var button = document.getElementById(id);
+				var element = document.getElementById(value);                
+				if (element.isContentEditable) {
+					element.contentEditable = 'false';
+					button.innerHTML = 'Edit';
+					$(this).attr('data-foo', 'edit'); 
+					var text = element.textContent;
+					$.ajax({
+						url : 'handlers/user-content-handler.php',
+						type : 'POST',
+						data: {index: value, content: text},
+						success: function(data){
+							window.location='index.php';
+						},
+						error : function(XMLHttpRequest, textStatus, errorThrown){
+							alert ("Error Occured");
+						}
+					});
+				} else {
+					element.contentEditable = 'true';
+					button.innerHTML = 'Confirm Edit';
+					$(this).attr('data-foo', 'editing'); 
+				}
+				return false;
+			};
+			for (var i = 0; i < elements.length; i++) {
+				elements[i].addEventListener('click', convertoEditable, false);
+			}	
+		</script>
 	</body>
 </html>
