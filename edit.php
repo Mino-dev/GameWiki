@@ -10,13 +10,16 @@
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-		<!-- Bootstrap CSS -->
+		<link rel="icon" type="image/png" href="img/icon/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="img/icon/favicon-16x16.png" sizes="16x16">	
+		<link rel="manifest" href="img/icon/site.webmanifest">
+		<link rel="icon" type="image/png" href="img/icon/android-chrome-512x512.png" sizes="512x512">
+		<link rel="icon" type="image/png" href="img/icon/android-chrome-192x192.png" sizes="192x192">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 		<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 		<?php require("style/decache.php"); ?>
 		<link rel="stylesheet" href="style/style.css?v=<?php echo returnVersion();?>" type="text/css">
-		<title>Wiki</title>
+		<title>Fishing Lagoon Idle Wiki</title>
 	</head>
 	<body>
 		<div class="container-fluid main-content">

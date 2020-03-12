@@ -108,7 +108,7 @@
                         </div>
                     </div>
                     <?php echo $error; ?>
-                    <button type="submit" name="register" class="btn btn-primary">Sign Up</button>
+                    <button type="submit" name="register" class="btn btn-light">Sign Up</button>
                 </form>
             </div>
             <div class="card-footer">
