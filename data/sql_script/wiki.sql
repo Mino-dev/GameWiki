@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2020 at 04:18 AM
+-- Generation Time: Mar 12, 2020 at 03:07 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -36,6 +36,13 @@ CREATE TABLE `updates` (
   `uid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `updates`
+--
+
+INSERT INTO `updates` (`updateid`, `updatepath`, `updatetag`, `timestamp`, `uid`) VALUES
+(1, 'data/dyn_content/content1584020645copy.json', 0, '2020-03-12 14:05:58', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -56,7 +63,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`uid`, `username`, `upassword`, `uemail`, `utype`, `upfp`) VALUES
-(1, 'admin', '1cccbe5244635c58e8a9f7da59dcd88f', 'j.vinceeleazar@gmail.com', 0, 'img/profile_image/121583235974a5cc9baac6e007900de8f3a356f0ec28.jpg');
+(1, 'admin', '1cccbe5244635c58e8a9f7da59dcd88f', 'j.vinceeleazar@gmail.com', 0, 'img/profile_image/121583235974a5cc9baac6e007900de8f3a356f0ec28.jpg'),
+(2, 'Mino', '127935009473687a0efe30fe7ef66807', 'minotan.ggwp@gmail.com', 1, 'img/default.png');
 
 --
 -- Indexes for dumped tables
@@ -83,13 +91,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `updates`
 --
 ALTER TABLE `updates`
-  MODIFY `updateid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `updateid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables

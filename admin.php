@@ -19,7 +19,6 @@
 		<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 		<?php require("style/decache.php"); ?>
 		<link rel="stylesheet" href="style/style.css?v=<?php echo returnVersion();?>" type="text/css">
-
 		<title>Fishing Lagoon Idle Wiki</title>
 	</head>
 	<body>
@@ -34,6 +33,24 @@
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
-		<script src="script/admin.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			var elements = document.getElementsByClassName("adminEdit");
+			var getValues = function() {
+				var attribute = $(this).attr("value");
+				$.ajax({
+					url : 'handlers/admin-handler.php',
+					type : 'POST',
+					data: {
+						updatedata : attribute,
+					},
+					error : function(XMLHttpRequest, textStatus, errorThrown){
+						alert ("Error Occured");
+					}
+				});
+			};
+			for (var i = 0; i < elements.length; i++) {
+				elements[i].addEventListener('click', getValues, false);
+			}
+		</script>
 	</body>
 </html>

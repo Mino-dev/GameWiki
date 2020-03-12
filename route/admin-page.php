@@ -152,67 +152,73 @@
             </div>
         </div>
     </div>
-    <div id="accordion admin-updates">
-    <button class="adminEdit" data-toggle="modal" data-target="#revert" value="-1">
-        Revert to Original
-    </button>
-    <?php
-        if(isset($updates) && $updates != null){
+    <div style="margin: 15px 15px;">
+        <button class="adminEdit" data-toggle="modal" data-target="#revert" value="-1">
+                Revert to Original
+        </button>
+    </div>
+    <div id="accordion" class="admin-updates" style="margin: 15px 0px;">
+        <?php
+            if(isset($updates) && $updates != null){
 
-            foreach($updates as $key=>$content_updates){
-    ?>
-                <div class="card" style="margin: 10px 5px;">
-                    <div class="card-header" id="heading<?php echo $content_updates['updateid']?>">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<?php echo $content_updates['updateid']?>" aria-expanded="true" aria-controls="collapseOne">
-                                <?php
-                                    echo "Changes from user: " . $content_updates['uid'] . " " . $content_updates['timestamp'];
-                                    $updatable = json_decode(file_get_contents($content_updates['updatepath']),true);
-                                ?>
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="collapse<?php echo $content_updates['updateid']?>" class="collapse" aria-labelledby="heading<?php echo $content_updates['updateid']?>" data-parent="#accordion">
-                        <div class="card-body">
-                            <div class="col-12">
-                                <h1>Description</h1>
-                            </div>
-                            <div class="col-12">
-                                <?php echo$updatable['desc']?>
-                            </div>
-                            <div class="col-12">
-                                <h1>Gameplay</h1>
-                            </div>
-                            <div class="col-12">
-                                <?php echo$updatable['game']?>
-                            </div>
-                            <div class="col-12">
-                                <h1>Trivia</h1>
-                            </div>
-                            <div class="col-12">
-                                <?php echo$updatable['triv']?>
-                            </div>
-                            <div class="col-12">
-                                <h1>News and Events</h1>
-                            </div>
-                            <div class="col-12">
-                                <?php echo$updatable['nwev']?>
-                            </div>
-                            <div class="col-12">
-                                <img src="<?php echo $updatable['fimg']?>" alt="featured image">
-                            </div>
-                        </div>
-                        <button class="adminEdit" id="buttonAccept" data-toggle="modal" data-target="#acceptChanges" value="<?php echo $key;?>">
-                            Accept
-                        </button>
-                        <button class="adminEdit" id="buttonEdit" data-toggle="modal" data-target="#editChanges" value="<?php echo $key;?>">
-                            Edit
-                        </button>
-                        <button class="adminEdit" id="buttonReject" data-toggle="modal" data-target="#rejectChanges" value="<?php echo $key;?>">
-                            Reject
-                        </button>
-                    </div>
+                foreach($updates as $key=>$content_updates){
+        ?>
+        <div class="card">
+        <div style="margin: 10px 5px;">
+            <div id="heading<?php echo $content_updates['updateid']?>">
+                <div class="card-header">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<?php echo $content_updates['updateid']?>" aria-expanded="true" aria-controls="collapseOne">
+                    <?php
+                        echo "Changes from user: " . $content_updates['uid'] . " " . $content_updates['timestamp'];
+                        $updatable = json_decode(file_get_contents($content_updates['updatepath']),true);
+                    ?>
+                </button>
                 </div>
+            </div>
+            <div id="collapse<?php echo $content_updates['updateid']?>" class="collapse" aria-labelledby="heading<?php echo $content_updates['updateid']?>" data-parent="#accordion">       
+                <div class="card-body">
+                <div class="col-12">
+                    <h1>Description</h1>
+                </div>
+                <div class="col-12">
+                    <?php echo$updatable['desc']?>
+                </div>
+                <div class="col-12">
+                    <h1>Gameplay</h1>
+                </div>
+                <div class="col-12">
+                    <?php echo$updatable['game']?>
+                </div>
+                <div class="col-12">
+                    <h1>Trivia</h1>
+                </div>
+                <div class="col-12">
+                    <?php echo$updatable['triv']?>
+                </div>
+                <div class="col-12">
+                    <h1>News and Events</h1>
+                </div>
+                <div class="col-12">
+                    <?php echo$updatable['nwev']?>
+                </div>
+                <div class="col-12">
+                    <img src="<?php echo $updatable['fimg']?>" alt="featured image">
+                </div>
+                </div>
+                <div class="card-footer">
+                <button class="adminEdit" id="buttonAccept" data-toggle="modal" data-target="#acceptChanges" value="<?php echo $key;?>">
+                    Accept
+                </button>
+                <button class="adminEdit" id="buttonEdit" data-toggle="modal" data-target="#editChanges" value="<?php echo $key;?>">
+                    Edit
+                </button>
+                <button class="adminEdit" id="buttonReject" data-toggle="modal" data-target="#rejectChanges" value="<?php echo $key;?>">
+                    Reject
+                </button>
+                </div>
+            </div>
+        </div>
+        </div>
             <?php } ?>
         <?php
         }else{?>
