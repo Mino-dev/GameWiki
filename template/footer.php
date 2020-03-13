@@ -13,30 +13,36 @@
 
                 <!-- Links -->
                 <h5 class="text-uppercase">Contact Us</h5>
+                <div class="container align-items-center">
+                  <div class="row">
+                      <div class="col-sm-2">
+                        <a href="#!"><i class="fab fa-instagram fa-2x"></i></a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#!"><i class="fab fa-facebook-square fa-2x"></i></a>
+                      </div>
+                      <div class="col-sm-2">
+                        <a href="#!"><i class="far fa-envelope fa-2x"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="#!"><i class="fab fa-instagram fa-2x"></i> @idlefishinglagoon</a>
-                    </li>
-                    <li>
-                        <a href="#!"><i class="fab fa-facebook-square fa-2x"></i></i> IdleFishingLagoon</a>
-                    </li>
-                    <li>
-                        <a href="#!"><i class="far fa-envelope fa-2x"></i> devs@idlefishinglagoon.com</a>
-                    </li>
-                    <li>
-                        <a href="#!"><i class="fas fa-mobile-alt fa-2x"></i> +639123456789</a>
-                    </li>
-
-                </ul>
-            </div>
             <!-- Grid column -->
             <div class="col-md-3 mt-md-0 mt-3">
-
               <h5 class="text-uppercase">ABOUT US</h5>
-              <ul class="list-unstyled">
-                <li>Jay-Vince G. Eleazar</li>
-                <li>Kenneth Dan T. Villanueva</li>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <a href="#!">Jay-Vince G. Eleazar</a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <a href="#!">Kenneth Dan T. Villanueva</a>
+                  </div>
+                </div>
+              </div>
               </ul>
                 <div class="footer-copyright py-3">© 2020 Copyright: Tsong and Co.</div>
                 <!-- Copyright -->
@@ -49,7 +55,6 @@
         </div>
         <!-- Grid row -->
     </div>
-    <!-- Footer Links -->
 
 
 </div>

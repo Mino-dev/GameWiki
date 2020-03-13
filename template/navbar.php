@@ -19,7 +19,7 @@
 <div class="row no-padding">
 	<div class="col-md-12 col-navbar">
 		<nav class='navbar navbar-expand-lg navbar-custom'>
-			<a class='navbar-brand'>Idle Fishing Lagoon Wiki</a>
+			<a class='navbar-brand'>Fishing Lagoon Idle Wiki</a>
 				<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
 					<span class='navbar-toggler-icon'></span>
 				</button>
@@ -52,7 +52,7 @@
 							<div class="dropdown-divider"></div>
 							<a class='dropdown-item' href='register.php'>Register Now!</a>
 							<?php echo $control; ?>
-							
+
 						</div>
 					</li>
 				</ul>
