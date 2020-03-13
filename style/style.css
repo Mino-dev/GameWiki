@@ -54,11 +54,30 @@ body{
 }
 .homepagecontent{
 	padding: 30px 20px 60px 20px;
-	margin-bottom: 30px;  
+	margin-bottom: 30px;
 }
 .admin-updates{
 	padding: 15px 15px;
 }
 #saveButton{
 	padding: 5px 0px;
+}
+.register {
+  color: green;
+}
+a:hover {
+  color: #a72d88;
+}
+.dropdown-menu {
+  background-color: #fcbb30;
+}
+.socmed tr td{
+  border-collapse: none;
+  padding: 3px;
+}
+.socmed {
+  color: #1880ff;
+}
+.nav-link {
+  color: #1880ff;
 }
