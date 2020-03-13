@@ -49,12 +49,12 @@
                         </div>
                     </div>
                     <?php echo $error; ?>
-                    <button type="submit" name="login" class="btn btn-light">Sign In</button>  
+                    <button type="submit" name="login" class="btn btn-primary">Sign In</button>
                 </form>
             </div>
             <div class="card-footer">
                 <p class="card-text">Don't have an account yet?</p>
-                <a href="register.php">Register Now!</a>
+                <a href="register.php" class="register">Register Now!</a>
             </div>
         </div>
     </div>

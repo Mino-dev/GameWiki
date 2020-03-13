@@ -2,7 +2,7 @@
 	global $changes;
 	require_once('data/database.php');
 	if(connectDB()){
-		
+
 		if(!isset($_SESSION['content'])){
 			$dir = "data/stat_content/content.json";
 			if(file_exists($dir)){
@@ -19,13 +19,13 @@
 				);
 			}
 			$_SESSION['content'] = $content;
-			$_SESSION['changes'] = false;		
+			$_SESSION['changes'] = false;
 		}
 ?>
 
-<header class="header-section sticky-top"> 
+<header class="header-section sticky-top">
     <?php
-		include('template/navbar.php');          
+		include('template/navbar.php');
     ?>
 
 </header>
@@ -37,10 +37,10 @@
 		<div class="row">
 			<div class="col-md-4">
 				<h1>Description</h1>
-			</div>	
+			</div>
 			<div class="col-md-8">
-				<button class="userEdit btn btn-link" id="e1" data-foo="edit" value="desc" 
-				style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;"> 
+				<button class="userEdit btn btn-link" id="e1" data-foo="edit" value="desc"
+				style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
 					[ Edit ]
 				</button>
 			</div>
@@ -49,14 +49,14 @@
 				<?php echo$_SESSION['content']['desc']?>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-md-4">
 				<h1>Gameplay</h1>
 			</div>
 			<div class="col-md-8">
 				<button class="userEdit btn btn-link" id="e2" data-foo="edit" value="game"
-				style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;"> 
+				style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
 					[ Edit ]
 				</button>
 			</div>
@@ -65,14 +65,14 @@
 				<?php echo$_SESSION['content']['game']?>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-md-4">
 				<h1>Trivia</h1>
 			</div>
 			<div class="col-md-8">
 				<button class="userEdit btn btn-link" id="e3" data-foo="edit" value="triv"
-					style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;"> 
+					style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
 					[ Edit ]
 				</button>
 			</div>
@@ -81,14 +81,14 @@
 				<?php echo$_SESSION['content']['triv']?>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-12 col-md-4">
 				<h1>News and Events</h1>
 			</div>
 			<div class="col-12 col-md-8">
 				<button class="userEdit btn btn-link" id="e4" data-foo="edit" value="nwev"
-					style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;"> 
+					style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
 					[ Edit ]
 				</button>
 			</div>
@@ -97,8 +97,8 @@
 				<?php echo$_SESSION['content']['nwev']?>
 			</div>
 		</div>
-		
-		<form method="post" enctype="multipart/form-data">     
+
+		<form method="post" enctype="multipart/form-data">
 			<div class="form-row">
 				<div class="col-12">
 					<h1>Featured Image</h1>
@@ -119,16 +119,16 @@
 					</div>
 					<div class="col-md-8">
 						<button id="e5" class="btn btn-light" value="fimg"
-							style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;"> 
+							style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
 							Upload
 						</button>
 					</div>
 				</div>
 			</div>
 		</form>
-	</div>     
+	</div>
 </section>
-	<?php	
+	<?php
 		closeDB();
 		}
 	?>

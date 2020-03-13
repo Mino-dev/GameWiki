@@ -1,7 +1,7 @@
 <?php
     $error = "";
     require('handlers/input-validation-handler.php');
-    require_once('data/database.php'); 
+    require_once('data/database.php');
     if(isset($_SESSION['log'])&&$_SESSION['log']){
         $client = $_SESSION['client'];
         $email = $client['uemail'];
@@ -12,14 +12,14 @@
         if(connectDB()){
             if(empty($_POST['password']) || ctype_space($_POST['password'])){
                 $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                            <strong>Fill out the password field.</strong> 
+                            <strong>Fill out the password field.</strong>
                             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                 <span aria-hidden='true'>&times;</span>
                             </button>
                         </div>";
             }else{
                 $password = htmlspecialchars(strip_tags($_POST['password']));
-                $check = checkInputPassword($password); 
+                $check = checkInputPassword($password);
                 if($check !==0 ){
                     $error = $check;
                 }else{
@@ -50,11 +50,11 @@
                                 }else{
                                     if(!checkIfUniqueEmail($email,$client['uid'])){
                                         $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                                    <strong>Email already exists!</strong> 
+                                                    <strong>Email already exists!</strong>
                                                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                                         <span aria-hidden='true'>&times;</span>
                                                     </button>
-                                                </div>"; 
+                                                </div>";
                                         $pass=false;
                                     }
                                 }
@@ -64,7 +64,7 @@
                     if($pass){
                         if(isset($_POST['username'])){
                             $username = htmlspecialchars(strip_tags($_POST['username']));
-                            if($username != $client['username']){ 
+                            if($username != $client['username']){
                                 $check = checkInputUsername($username);
                                 if($check !==0){
                                     $error = $check;
@@ -72,7 +72,7 @@
                                 }else{
                                     if(!checkIfUniqueUsername($username, $client['uid'])){
                                         $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                                    <strong>Username already exists!</strong> 
+                                                    <strong>Username already exists!</strong>
                                                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                                         <span aria-hidden='true'>&times;</span>
                                                     </button>
@@ -117,11 +117,11 @@
                                 if(!move_uploaded_file($_FILES['image']['tmp_name'], $path)){
                                     $pass = false;
                                     $error="<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-                                                <strong>Error uploading file</strong> contact admin for help. 
+                                                <strong>Error uploading file</strong> contact admin for help.
                                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                                     <span aria-hidden='true'>&times;</span>
                                                 </button>
-                                            </div>";  
+                                            </div>";
                                 }
                             }else{
                                 $pass = false;
@@ -130,11 +130,11 @@
                                                 <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                                                     <span aria-hidden='true'>&times;</span>
                                                 </button>
-                                            </div>";  
+                                            </div>";
                             }
                         }
                     }
-                    if($pass){    
+                    if($pass){
                         $check = updateUser($username,MD5($password),$email,$path,$client['uid']);
                         if(is_bool($check) && $check){
                             $error="<div class='alert alert-success' role='alert'>
@@ -144,17 +144,17 @@
                             $error=$check;
                         }
                     }
-                   
-                }        
+
+                }
             }
             closeDB();
         }
     }
-    
+
 ?>
 <header class="header-section">
     <?php
-        include('template/navbar.php'); 
+        include('template/navbar.php');
     ?>
 </header>
 <section class="container text-center" style="min-height: 95vh; margin-bottom: 30px;">
@@ -164,11 +164,9 @@
                 <form class="login-form" method="post" enctype="multipart/form-data">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="register-email">Email</label>
                             <input type="email" name="email" class="form-control" id="register-email" placeholder="Email"  value="<?php echo addslashes($email); ?>" required>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="register-username">Username</label>
                             <input type="text" name="username" class="form-control" id="register-username" placeholder="Username"  value="<?php echo addslashes($username); ?>" required>
                         </div>
                     </div>
@@ -185,7 +183,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        
+
                         <label for="file" class="col-sm-2 col-form-label"><img src="<?php echo addslashes($client['upfp']); ?>" class="rounded-circle" alt="profile image" style="max-width: 120px; height: auto;"></label>
                         <div class="col-sm-10">
                             <input type="file" name="image" class="form-control-file" id="file">
@@ -198,11 +196,11 @@
                         </div>
                     </div>
                     <?php echo $error; ?>
-                    <button type="submit" name="edit" class="btn btn-light">Edit</button>
+                    <button type="submit" name="edit" class="btn btn-primary">Edit</button>
                 </form>
             </div>
             <div class="card-footer">
-                <a href="index.php">Back to Home Page</a>
+                <a href="index.php" class="register">Back to Home Page</a>
             </div>
         </div>
     </div>

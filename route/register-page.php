@@ -22,7 +22,7 @@
                 $username = htmlspecialchars(strip_tags($_POST['username']));
                 $password = htmlspecialchars(strip_tags($_POST['password']));
                 $cpassword = htmlspecialchars(strip_tags($_POST['cpassword']));
-                
+
                 if(checkInputUsername($username) !==0){
                     $error = checkInputUsername($username);
                 }else if(checkInputPassword($password) !==0 ){
@@ -108,11 +108,11 @@
                         </div>
                     </div>
                     <?php echo $error; ?>
-                    <button type="submit" name="register" class="btn btn-light">Sign Up</button>
+                    <button type="submit" name="register" class="btn btn-primary">Sign Up</button>
                 </form>
             </div>
             <div class="card-footer">
-                <a href="login.php">Back to Login Page</a>
+                <a href="login.php" class="register">Back to Login Page</a>
             </div>
         </div>
     </div>
