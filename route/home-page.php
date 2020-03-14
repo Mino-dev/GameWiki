@@ -34,70 +34,82 @@
 		<div id="saveButton">
 			<?php require('handlers/content-handler.php'); ?>
 		</div>
-		<div class="row">
-			<div class="col-md-4">
-				<h1>Description</h1>
+		<ul class="nav nav-tabs">
+			<li class="nav-item"><a class="nav-link active" data-toggle="pill" href="#description">Description</a></li>
+			<li class="nav-item"><a class="nav-link" data-toggle="pill" href="#gameplay">Gameplay</a></li>
+			<li class="nav-item"><a class="nav-link" data-toggle="pill" href="#trivia">Trivia</a></li>
+			<li class="nav-item"><a class="nav-link" data-toggle="pill" href="#newsandevents">News and Events</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="description" class="tab-pane active">
+				<div class="row">
+					<div class="col-md-4">
+						<h1>Description</h1>
+					</div>
+					<div class="col-md-8">
+						<button class="userEdit btn btn-link" id="e1" data-foo="edit" value="desc"
+						style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
+							[ Edit ]
+						</button>
+					</div>
+					<div class="hr col-12"><hr></div>
+					<div class="col-12 homepagecontent" id="desc">
+						<?php echo$_SESSION['content']['desc']?>
+					</div>
+				</div>
 			</div>
-			<div class="col-md-8">
-				<button class="userEdit btn btn-link" id="e1" data-foo="edit" value="desc"
-				style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
-					[ Edit ]
-				</button>
+			<div id="gameplay" class="tab-pane fade">
+				<div class="row">
+					<div class="col-md-4">
+						<h1>Gameplay</h1>
+					</div>
+					<div class="col-md-8">
+						<button class="userEdit btn btn-link" id="e2" data-foo="edit" value="game"
+						style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
+							[ Edit ]
+						</button>
+					</div>
+					<div class="hr col-12"><hr></div>
+					<div class="col-12 homepagecontent" id="game">
+						<?php echo$_SESSION['content']['game']?>
+					</div>
+				</div>
 			</div>
-			<div class="hr col-12"><hr></div>
-			<div class="col-12 homepagecontent" id="desc">
-				<?php echo$_SESSION['content']['desc']?>
+			<div id="trivia" class="tab-pane fade">
+				<div class="row">
+					<div class="col-md-4">
+						<h1>Trivia</h1>
+					</div>
+					<div class="col-md-8">
+						<button class="userEdit btn btn-link" id="e3" data-foo="edit" value="triv"
+							style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
+							[ Edit ]
+						</button>
+					</div>
+					<div class="hr col-12"><hr></div>
+					<div class="col-12 homepagecontent" id="triv">
+						<?php echo$_SESSION['content']['triv']?>
+					</div>			
+				</div>
+			</div>
+			<div id="newsandevents" class="tab-pane fade">
+				<div class="row">
+					<div class="col-12 col-md-4">
+						<h1>News and Events</h1>
+					</div>
+					<div class="col-12 col-md-8">
+						<button class="userEdit btn btn-link" id="e4" data-foo="edit" value="nwev"
+							style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
+							[ Edit ]
+						</button>
+					</div>
+					<div class="hr col-12"><hr></div>
+					<div class="col-12 homepagecontent" id="nwev">
+						<?php echo$_SESSION['content']['nwev']?>
+					</div>
+				</div>
 			</div>
 		</div>
-
-		<div class="row">
-			<div class="col-md-4">
-				<h1>Gameplay</h1>
-			</div>
-			<div class="col-md-8">
-				<button class="userEdit btn btn-link" id="e2" data-foo="edit" value="game"
-				style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
-					[ Edit ]
-				</button>
-			</div>
-			<div class="hr col-12"><hr></div>
-			<div class="col-12 homepagecontent" id="game">
-				<?php echo$_SESSION['content']['game']?>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-md-4">
-				<h1>Trivia</h1>
-			</div>
-			<div class="col-md-8">
-				<button class="userEdit btn btn-link" id="e3" data-foo="edit" value="triv"
-					style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
-					[ Edit ]
-				</button>
-			</div>
-			<div class="hr col-12"><hr></div>
-			<div class="col-12 homepagecontent" id="triv">
-				<?php echo$_SESSION['content']['triv']?>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-12 col-md-4">
-				<h1>News and Events</h1>
-			</div>
-			<div class="col-12 col-md-8">
-				<button class="userEdit btn btn-link" id="e4" data-foo="edit" value="nwev"
-					style="display:<?php echo (isset($_SESSION['log']))? "inherit" : "none"; ?>;">
-					[ Edit ]
-				</button>
-			</div>
-			<div class="hr col-12"><hr></div>
-			<div class="col-12 homepagecontent" id="nwev">
-				<?php echo$_SESSION['content']['nwev']?>
-			</div>
-		</div>
-
 		<form method="post" enctype="multipart/form-data">
 			<div class="form-row">
 				<div class="col-12">
