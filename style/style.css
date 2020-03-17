@@ -48,12 +48,11 @@ body{
 .nav-link {
   color: #a72d88;
 }
-
 .content-wrapper{
 	padding: 15px 15px 30px 15px;
 }
 .homepagecontent{
-	padding: 30px 20px 60px 20px;
+	padding: 30px 30px 60px 30px;
 	margin-bottom: 30px;
 }
 .admin-updates{
@@ -80,4 +79,33 @@ a:hover {
 }
 .nav-link {
   color: #1880ff;
+}
+.tab-pane{
+	background: #e4cf81;
+	margin: 15px 0;
+	padding: 30px 30px 60px 30px;
+}
+.tab-content-wrapper{
+	height: 80vh;
+	margin-bottom: 60px;
+}
+.nav-tabs>.active>a, .nav-tabs>.active>a:hover, .nav-tabs>.active>a:focus {
+	border-color: #d45500 #dee2e6 #d45500;
+    border-bottom-color: transparent;
+}
+.nav-link.active,
+  .nav-item.show .nav-link {
+    color: #495057 !important; 
+    background-color: #e4cf81 !important;
+    border-color: #d45500 #d45500 #d45500 !important;
+  }
+
+.nav-tabs {
+   border-bottom: 1px solid #d45500;
+   background-color: #e4cf81;
+}
+.nav-tabs a{
+	color: #124756;
+	font-weight: 600;
+	font-size: 1.2rem;
 }

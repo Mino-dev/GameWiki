@@ -34,7 +34,8 @@
 		<div id="saveButton">
 			<?php require('handlers/content-handler.php'); ?>
 		</div>
-		<ul class="nav nav-tabs">
+		<div class="tab-content-wrapper">
+		<ul class="nav nav-tabs nav-fill">
 			<li class="nav-item"><a class="nav-link active" data-toggle="pill" href="#description">Description</a></li>
 			<li class="nav-item"><a class="nav-link" data-toggle="pill" href="#gameplay">Gameplay</a></li>
 			<li class="nav-item"><a class="nav-link" data-toggle="pill" href="#trivia">Trivia</a></li>
@@ -110,6 +111,7 @@
 				</div>
 			</div>
 		</div>
+		</div>
 		<form method="post" enctype="multipart/form-data">
 			<div class="form-row">
 				<div class="col-12">
@@ -119,8 +121,8 @@
 			<div class="hr col-12"><hr></div>
 			<div class="homepagecontent">
 				<div class="form-row">
-					<div class="col-12 preview">
-						<image src="<?php echo$_SESSION['content']['fimg']?>">
+					<div class="col-12 preview d-flex justify-content-center" style="max-width: 90%; min-width: 80%; margin:0 auto; height: auto; ">
+						<image src="<?php echo$_SESSION['content']['fimg']?>" >
 					</div>
 				</div>
 				<div class="form-row">
