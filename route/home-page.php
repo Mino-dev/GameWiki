@@ -122,7 +122,7 @@
 			<div class="homepagecontent">
 				<div class="form-row">
 					<div class="col-12 preview d-flex justify-content-center" style="max-width: 90%; min-width: 80%; margin:0 auto; height: auto; ">
-						<image src="<?php echo$_SESSION['content']['fimg']?>" >
+						<image src="<?php echo$_SESSION['content']['fimg']?>" style="max-width: 90%; min-width: 80%;">
 					</div>
 				</div>
 				<div class="form-row">
