@@ -55,7 +55,7 @@
 					</div>
 					<div class="hr col-12"><hr></div>
 					<div class="col-12 homepagecontent" id="desc">
-						<?php echo$_SESSION['content']['desc']?>
+						<?php echo$_SESSION['content']['desc'];?>
 					</div>
 				</div>
 			</div>
@@ -72,7 +72,7 @@
 					</div>
 					<div class="hr col-12"><hr></div>
 					<div class="col-12 homepagecontent" id="game">
-						<?php echo$_SESSION['content']['game']?>
+						<?php echo$_SESSION['content']['game'];?>
 					</div>
 				</div>
 			</div>
@@ -89,7 +89,7 @@
 					</div>
 					<div class="hr col-12"><hr></div>
 					<div class="col-12 homepagecontent" id="triv">
-						<?php echo$_SESSION['content']['triv']?>
+						<?php echo$_SESSION['content']['triv']; ?>
 					</div>			
 				</div>
 			</div>
@@ -106,7 +106,7 @@
 					</div>
 					<div class="hr col-12"><hr></div>
 					<div class="col-12 homepagecontent" id="nwev">
-						<?php echo$_SESSION['content']['nwev']?>
+						<?php echo$_SESSION['content']['nwev']; ?>
 					</div>
 				</div>
 			</div>
@@ -121,8 +121,8 @@
 			<div class="hr col-12"><hr></div>
 			<div class="homepagecontent">
 				<div class="form-row">
-					<div class="col-12 preview d-flex justify-content-center" style="max-width: 90%; min-width: 80%; margin:0 auto; height: auto; ">
-						<image src="<?php echo$_SESSION['content']['fimg']?>" style="max-width: 90%; min-width: 80%;">
+					<div class="col-12 preview d-flex justify-content-center">
+						<image src="<?php echo$_SESSION['content']['fimg']; ?>" style="max-width: 90%; min-width: 80%;  margin:0 auto; height: auto;">
 					</div>
 				</div>
 				<div class="form-row">

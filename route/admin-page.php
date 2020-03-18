@@ -165,9 +165,9 @@
         ?>
         <div class="card">
         <div style="margin: 10px 5px;">
-            <div id="heading<?php echo $content_updates['updateid']?>">
+            <div id="heading<?php echo $content_updates['updateid'];?>">
                 <div class="card-header">
-                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<?php echo $content_updates['updateid']?>" aria-expanded="true" aria-controls="collapseOne">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<?php echo $content_updates['updateid'];?>" aria-expanded="true" aria-controls="collapseOne">
                     <?php
                         echo "Changes from user: " . $content_updates['uid'] . " " . $content_updates['timestamp'];
                         $updatable = json_decode(file_get_contents($content_updates['updatepath']),true);
@@ -175,34 +175,37 @@
                 </button>
                 </div>
             </div>
-            <div id="collapse<?php echo $content_updates['updateid']?>" class="collapse" aria-labelledby="heading<?php echo $content_updates['updateid']?>" data-parent="#accordion">       
+            <div id="collapse<?php echo $content_updates['updateid'];?>" class="collapse" aria-labelledby="heading<?php echo $content_updates['updateid'];?>" data-parent="#accordion">       
                 <div class="card-body">
                 <div class="col-12">
                     <h1>Description</h1>
                 </div>
                 <div class="col-12">
-                    <?php echo$updatable['desc']?>
+                    <?php echo$updatable['desc'];?>
                 </div>
                 <div class="col-12">
                     <h1>Gameplay</h1>
                 </div>
                 <div class="col-12">
-                    <?php echo$updatable['game']?>
+                    <?php echo$updatable['game'];?>
                 </div>
                 <div class="col-12">
                     <h1>Trivia</h1>
                 </div>
                 <div class="col-12">
-                    <?php echo$updatable['triv']?>
+                    <?php echo$updatable['triv'];?>
                 </div>
                 <div class="col-12">
                     <h1>News and Events</h1>
                 </div>
                 <div class="col-12">
-                    <?php echo$updatable['nwev']?>
+                    <?php echo$updatable['nwev'];?>
                 </div>
                 <div class="col-12">
-                    <img src="<?php echo $updatable['fimg']?>" alt="featured image">
+                    <h1>Featured Image</h1>
+                </div>
+                <div class="col-12">
+                    <img src="<?php echo $updatable['fimg'];?>" alt="featured image" style="max-width: 90%; min-width: 80%;  margin:0 auto; height: auto;">
                 </div>
                 </div>
                 <div class="card-footer">

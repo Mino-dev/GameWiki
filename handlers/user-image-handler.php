@@ -16,15 +16,15 @@ if(file_exists($_FILES['file']['tmp_name']) || is_uploaded_file($_FILES['file'][
     if($ok == 0){
     echo 0;
     }else{
-    $path = "img/content_image/".$client['uid'].$temp_time.MD5($file_name).".".$file_extension;
-    if(move_uploaded_file($_FILES['file']['tmp_name'],"../".$path)){
-        $_SESSION['content']['fimg'] = $path;
-        $_SESSION['changes'] = true;
-        echo 1;
-    }else{
-        echo 0;
-    }
-    }
+        $path = "img/content_image/".$client['uid'].$temp_time.MD5($file_name).".".$file_extension;
+        if(move_uploaded_file($_FILES['file']['tmp_name'],"../".$path)){
+            $_SESSION['content']['fimg'] = $path;
+            $_SESSION['changes'] = true;
+            echo 1;
+        }else{
+            echo 0;
+        }
+        }
 }else{
     echo 0;
 }
